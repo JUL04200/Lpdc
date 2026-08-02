@@ -47,7 +47,7 @@
         </div>
       </div>
       <div class="hero-art">
-        <img src="assets/facade.jpg" alt="Façade de la boulangerie Le Pain de la Cité, à la Cité Internationale de Lyon" class="hero-photo">
+        <img src="assets/facade-night.jpg" alt="Façade de la boulangerie Le Pain de la Cité, à la Cité Internationale de Lyon" class="hero-photo">
       </div>
     </div>
   </section>
@@ -72,6 +72,11 @@
       <h2 class="center">Un peu de tout, fait avec soin</h2>
       <p class="section-sub center">Salé, sucré, sur le pouce ou à emporter — de quoi satisfaire toutes les envies du midi.</p>
 
+      <figure class="carte-photo">
+        <img src="assets/vitrine.jpg" alt="La vitrine de la boulangerie Le Pain de la Cité, garnie de sandwichs, wraps, burgers et croque-monsieur">
+        <figcaption>Notre vitrine, garnie chaque matin</figcaption>
+      </figure>
+
       <div class="menu-grid">
         <div class="menu-card">
           <div class="menu-icon" aria-hidden="true">
@@ -89,10 +94,17 @@
         </div>
         <div class="menu-card">
           <div class="menu-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48"><path d="M8 14c14-6 26-6 32 4-4 14-20 20-32 12z" fill="#7FA65C"/><path d="M14 20c6 4 16 4 22-2" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Salades</h3>
+          <p>Fraîches et généreuses, idéales pour une pause légère et équilibrée.</p>
+        </div>
+        <div class="menu-card">
+          <div class="menu-icon" aria-hidden="true">
             <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17" fill="#EADFC8"/><path d="M14 20c8 4 12 4 20 0M14 28c8-4 12-4 20 0" stroke="#D9A441" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
           </div>
           <h3>Pâtes</h3>
-          <p>Des plats de pâtes savoureux, une option idéale et gourmande pour le déjeuner.</p>
+          <p>450g de pâtes assaisonnées : tomate-basilic, pesto, 4 fromages, carbonara ou bolognaise.</p>
         </div>
         <div class="menu-card">
           <div class="menu-icon" aria-hidden="true">
@@ -115,27 +127,67 @@
           <h3>Viennoiseries</h3>
           <p>Croissants, pains au chocolat et autres viennoiseries, tout juste sorties du four.</p>
         </div>
+        <div class="menu-card">
+          <div class="menu-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48"><rect x="14" y="10" width="20" height="30" rx="3" fill="#C1613C"/><path d="M18 10V6h12v4" stroke="#8C4426" stroke-width="2" fill="none"/></svg>
+          </div>
+          <h3>Boissons</h3>
+          <p>Boissons fraîches et eau, à ajouter facilement à n'importe quelle formule.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <section id="formules" class="section formules">
-    <div class="container formules-inner">
-      <div class="formules-text">
-        <p class="eyebrow">Formules du midi</p>
-        <h2>Bien manger, sans se ruiner</h2>
-        <p>Nos formules du midi sont pensées pour s'adapter à votre budget, sans jamais faire de compromis sur la qualité ou la générosité des portions. Sandwich, panini ou plat de pâtes accompagné d'une boisson ou d'un dessert : de quoi repartir satisfait et à l'heure.</p>
+    <div class="container">
+      <p class="eyebrow center">Formules du midi</p>
+      <h2 class="center">Bien manger, sans se ruiner</h2>
+      <p class="section-sub center formules-sub">Nos formules du midi sont pensées pour s'adapter à votre budget, sans jamais faire de compromis sur la qualité ou la générosité des portions.</p>
+
+      <div class="formules-grid">
+        <div class="formule-card">
+          <div class="formule-head">
+            <h3>Menu Sandwich</h3>
+            <span class="formule-price">8,60&nbsp;€</span>
+          </div>
+          <p>1 sandwich au choix + 1 dessert + 1 boisson 33cl ou eau 50cl.</p>
+          <p class="formule-note">Avec boisson 50cl : +0,80&nbsp;€</p>
+        </div>
+        <div class="formule-card">
+          <div class="formule-head">
+            <h3>Menu Quiche</h3>
+            <span class="formule-price">7,30&nbsp;€</span>
+          </div>
+          <p>1 part de quiche + 1 dessert viennoiserie (croissant, pain au chocolat ou yaourt) + 1 boisson 33cl ou eau 50cl.</p>
+          <p class="formule-note">Avec boisson 50cl : +0,80&nbsp;€</p>
+        </div>
+        <div class="formule-card">
+          <div class="formule-head">
+            <h3>Menu Pâtes</h3>
+            <span class="formule-price">10,30&nbsp;€</span>
+          </div>
+          <p>450g de pâtes assaisonnées (tomate-basilic, pesto, 4 fromages, carbonara ou bolognaise + parmesan) + 1 dessert + 1 boisson 33cl ou eau 50cl.</p>
+          <p class="formule-note">Avec boisson 50cl : +0,80&nbsp;€</p>
+        </div>
+        <div class="formule-card">
+          <div class="formule-head">
+            <h3>Menu Salade</h3>
+            <span class="formule-price">10,30&nbsp;€</span>
+          </div>
+          <p>1 salade au choix + 1 dessert + 1 boisson 33cl ou eau 50cl.</p>
+          <p class="formule-note">Avec boisson 50cl : +0,80&nbsp;€</p>
+        </div>
+      </div>
+
+      <div class="formules-cta">
         <a href="tel:0699738605" class="btn btn-primary">Réserver par téléphone</a>
+        <p class="formules-tarifs-note">Tarifs relevés sur notre panneau en boutique, susceptibles d'évoluer.</p>
       </div>
-      <div class="formules-card">
-        <h3>Pourquoi nos habitués reviennent</h3>
-        <ul class="check-list">
-          <li>Des produits frais, préparés sur place</li>
-          <li>Un large choix salé et sucré</li>
-          <li>Des prix adaptés au budget étudiant et salarié</li>
-          <li>Un accueil chaleureux, jour après jour depuis 20 ans</li>
-        </ul>
-      </div>
+
+      <figure class="formules-board">
+        <img src="assets/menu-board.jpg" alt="Panneau des formules du midi affiché devant la boulangerie, avec les prix détaillés">
+        <figcaption>Notre panneau des formules, affiché devant la boutique</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -159,6 +211,7 @@
           </li>
         </ul>
         <p class="infos-note">Horaires indicatifs — merci de vérifier par téléphone en cas de doute (jours fériés, congés d'été, etc.).</p>
+        <img src="assets/facade-day.jpg" alt="La boulangerie Le Pain de la Cité de jour, à la Cité Internationale de Lyon" class="infos-photo">
       </div>
       <div class="infos-map">
         <iframe
