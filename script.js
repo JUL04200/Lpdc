@@ -32,6 +32,7 @@ function initClickCollect() {
   const totalEl = document.getElementById("ccTotal");
   const sendBtn = document.getElementById("ccSendSms");
   const copyBtn = document.getElementById("ccCopyOrder");
+  const pickupBtn = document.getElementById("ccPayPickup");
   const nameInput = document.getElementById("ccName");
   const timeInput = document.getElementById("ccTime");
   const noticeEl = document.getElementById("ccPaypalNotice");
@@ -39,7 +40,9 @@ function initClickCollect() {
   const paypalReady = () =>
     Boolean(PAYPAL_CLIENT_ID) && !PAYPAL_CLIENT_ID.startsWith("REMPLACER");
 
-  let paid = false;
+  // null = pas encore choisi, "paypal" = payé en ligne, "pickup" = réglé
+  // sur place (CB, espèces ou titre-restaurant, non compatible PayPal).
+  let paymentMethod = null;
 
   function getCart() {
     const cart = [];
@@ -61,14 +64,14 @@ function initClickCollect() {
   }
 
   function formatEuro(n) {
-    return n.toFixed(2).replace(".", ",") + " €";
+    return n.toFixed(2).replace(".", ",") + " €";
   }
 
   function updateActionButtons(cart) {
     const hasItems = cart.length > 0;
-    const canSend = hasItems && (paid || !paypalReady());
-    sendBtn.disabled = !canSend;
+    sendBtn.disabled = !(hasItems && paymentMethod !== null);
     copyBtn.disabled = !hasItems;
+    pickupBtn.disabled = !hasItems;
   }
 
   function renderCart() {
@@ -85,7 +88,7 @@ function initClickCollect() {
       : '<li class="cc-empty">Aucun article sélectionné</li>';
 
     totalEl.textContent = formatEuro(total);
-    paid = false;
+    paymentMethod = null;
     updateActionButtons(cart);
   }
 
@@ -115,8 +118,12 @@ function initClickCollect() {
     lines.push("");
     cart.forEach((i) => lines.push(`- ${i.qty}x ${i.name}`));
     lines.push("");
-    lines.push(`Total : ${formatEuro(total).replace(" ", " ")}`);
-    lines.push(paid ? "Réglé via PayPal" : "À régler sur place");
+    lines.push(`Total : ${formatEuro(total)}`);
+    lines.push(
+      paymentMethod === "paypal"
+        ? "Réglé via PayPal"
+        : "À régler sur place (CB, espèces ou titre-restaurant)"
+    );
 
     return lines.join("\n");
   }
@@ -140,6 +147,13 @@ function initClickCollect() {
     }
   });
 
+  pickupBtn.addEventListener("click", () => {
+    paymentMethod = "pickup";
+    updateActionButtons(getCart());
+    noticeEl.textContent = "✅ Réglez sur place au retrait (CB, espèces ou titre-restaurant). Envoi du récapitulatif par SMS…";
+    sendOrderBySms();
+  });
+
   if (paypalReady()) {
     const sdk = document.createElement("script");
     sdk.src = `https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&currency=EUR&intent=capture`;
@@ -161,13 +175,13 @@ function initClickCollect() {
           },
           onApprove: (data, actions) =>
             actions.order.capture().then(() => {
-              paid = true;
+              paymentMethod = "paypal";
               updateActionButtons(getCart());
               noticeEl.textContent = "✅ Paiement confirmé ! Envoi du récapitulatif par SMS…";
               sendOrderBySms();
             }),
           onError: () => {
-            noticeEl.textContent = "Une erreur est survenue avec PayPal. Réessayez ou appelez-nous.";
+            noticeEl.textContent = "Une erreur est survenue avec PayPal. Réessayez, ou réglez sur place ci-dessous.";
           },
         })
         .render("#paypal-button-container");

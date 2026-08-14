@@ -395,10 +395,28 @@ a { color: inherit; text-decoration: none; }
 .cc-paypal { margin-top: 22px; min-height: 2px; }
 .cc-notice { font-size: 0.85rem; color: var(--mustard); margin-top: 10px; }
 
-.cc-send-btn, .cc-copy-btn { width: 100%; margin-top: 16px; text-align: center; }
-.cc-send-btn:disabled, .cc-copy-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-.cc-copy-btn { border-color: rgba(255,255,255,0.3); color: #fff; }
-.cc-copy-btn:hover:not(:disabled) { background: rgba(255,255,255,0.1); }
+.cc-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0;
+  color: #B49B87;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.cc-divider::before, .cc-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: rgba(255,255,255,0.14);
+}
+
+.cc-send-btn, .cc-copy-btn, .cc-pickup-btn { width: 100%; margin-top: 16px; text-align: center; }
+.cc-send-btn:disabled, .cc-copy-btn:disabled, .cc-pickup-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.cc-copy-btn, .cc-pickup-btn { border-color: rgba(255,255,255,0.3); color: #fff; }
+.cc-copy-btn:hover:not(:disabled), .cc-pickup-btn:hover:not(:disabled) { background: rgba(255,255,255,0.1); }
+.cc-pickup-btn { margin-top: 0; }
 
 .cc-note { font-size: 0.78rem; color: #B49B87; margin-top: 16px; }
 
