@@ -358,6 +358,7 @@ a { color: inherit; text-decoration: none; }
   font-size: 0.85rem;
   max-width: 220px;
 }
+.cc-item-note { color: var(--brown); font-style: italic; margin-top: 2px; }
 
 .cc-qty {
   display: flex;

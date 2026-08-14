@@ -48,10 +48,10 @@ function initClickCollect() {
     items.forEach((item) => {
       const qty = parseInt(item.dataset.qty || "0", 10);
       if (qty > 0) {
-        const flavorEl = item.querySelector(".cc-flavor");
+        const choices = Array.from(item.querySelectorAll(".cc-flavor")).map((el) => el.value);
         cart.push({
           name: item.dataset.name,
-          flavor: flavorEl ? flavorEl.value : null,
+          flavor: choices.length ? choices.join(", ") : null,
           price: parseFloat(item.dataset.price),
           qty,
         });
@@ -107,8 +107,7 @@ function initClickCollect() {
     dec.addEventListener("click", () => setQty(parseInt(item.dataset.qty || "0", 10) - 1));
     inc.addEventListener("click", () => setQty(parseInt(item.dataset.qty || "0", 10) + 1));
 
-    const flavorEl = item.querySelector(".cc-flavor");
-    if (flavorEl) flavorEl.addEventListener("change", renderCart);
+    item.querySelectorAll(".cc-flavor").forEach((el) => el.addEventListener("change", renderCart));
   });
 
   function buildOrderText() {
