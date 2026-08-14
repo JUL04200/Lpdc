@@ -299,6 +299,18 @@ a { color: inherit; text-decoration: none; }
 /* Click & Collect */
 .click-collect h2 { font-size: 2rem; margin-top: 6px; }
 
+.cc-cutoff {
+  max-width: 520px;
+  margin: 18px auto 0;
+  background: var(--cream-soft);
+  border: 1px solid rgba(193, 97, 60, 0.25);
+  border-radius: 999px;
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--terracotta-dark);
+}
+
 .cc-layout {
   display: grid;
   grid-template-columns: 1.3fr 1fr;
