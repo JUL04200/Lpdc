@@ -84,14 +84,14 @@
             <svg viewBox="0 0 48 48"><path d="M6 20l8-10h20l8 10-4 18H10z" fill="#D9A441"/><path d="M6 20h36" stroke="#8C4426" stroke-width="2"/><path d="M14 10l3 10M34 10l-3 10" stroke="#8C4426" stroke-width="2"/></svg>
           </div>
           <h3>Sandwichs</h3>
-          <p>Généreux et frais, préparés avec des produits de qualité, à composer selon vos envies.</p>
+          <p>Thon, poulet, jambon ou vegan — généreux et frais, préparés avec des produits de qualité.</p>
         </div>
         <div class="menu-card">
           <div class="menu-icon" aria-hidden="true">
             <svg viewBox="0 0 48 48"><rect x="6" y="16" width="36" height="16" rx="8" fill="#C1613C"/><path d="M10 24h28" stroke="#fff" stroke-width="2" stroke-dasharray="1 5" stroke-linecap="round"/></svg>
           </div>
           <h3>Paninis</h3>
-          <p>Chauds et croustillants, parfaits pour une pause rapide et réconfortante.</p>
+          <p>3 fromages, saumon ou steak — chauds et croustillants, parfaits pour une pause rapide.</p>
         </div>
         <div class="menu-card">
           <div class="menu-icon" aria-hidden="true">
@@ -105,14 +105,14 @@
             <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17" fill="#EADFC8"/><path d="M14 20c8 4 12 4 20 0M14 28c8-4 12-4 20 0" stroke="#D9A441" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
           </div>
           <h3>Pâtes</h3>
-          <p>450g de pâtes assaisonnées : tomate-basilic, pesto, 4 fromages, carbonara ou bolognaise.</p>
+          <p>Disponibles en hiver uniquement : tomate-basilic, pesto ou bolognaise — 450g généreusement assaisonnées.</p>
         </div>
         <div class="menu-card">
           <div class="menu-icon" aria-hidden="true">
             <svg viewBox="0 0 48 48"><path d="M6 26a18 8 0 0 1 36 0z" fill="#D9A441"/><rect x="6" y="26" width="36" height="6" rx="2" fill="#8C4426"/></svg>
           </div>
           <h3>Quiches</h3>
-          <p>Pâte croustillante et garnitures généreuses, servies en part ou à emporter.</p>
+          <p>Lorraine, méditerranéenne, 4 fromages ou poireaux — pâte croustillante, servies en part ou à emporter.</p>
         </div>
         <div class="menu-card">
           <div class="menu-icon" aria-hidden="true">
@@ -143,7 +143,7 @@
         <ul class="price-list">
           <li><span>Sandwich</span><span class="price-dots"></span><span>5,50&nbsp;€</span></li>
           <li><span>Panini</span><span class="price-dots"></span><span>5,50&nbsp;€</span></li>
-          <li><span>Wrap</span><span class="price-dots"></span><span>6,50&nbsp;€</span></li>
+          <li><span>Wrap Poulet</span><span class="price-dots"></span><span>6,50&nbsp;€</span></li>
           <li><span>Quiche</span><span class="price-dots"></span><span>4,80&nbsp;€</span></li>
           <li><span>Pâtes</span><span class="price-dots"></span><span>7,80&nbsp;€</span></li>
           <li><span>Muffin</span><span class="price-dots"></span><span>3,50&nbsp;€</span></li>
@@ -180,10 +180,10 @@
         </div>
         <div class="formule-card">
           <div class="formule-head">
-            <h3>Menu Pâtes</h3>
+            <h3>Menu Pâtes <small>(hiver uniquement)</small></h3>
             <span class="formule-price">10,30&nbsp;€</span>
           </div>
-          <p>450g de pâtes assaisonnées (tomate-basilic, pesto, 4 fromages, carbonara ou bolognaise + parmesan) + 1 dessert + 1 boisson 33cl ou eau 50cl.</p>
+          <p>450g de pâtes assaisonnées (tomate-basilic, pesto ou bolognaise) + 1 dessert + 1 boisson 33cl ou eau 50cl.</p>
           <p class="formule-note">Avec boisson 50cl : +0,80&nbsp;€</p>
         </div>
         <div class="formule-card">
@@ -220,7 +220,15 @@
         <div class="cc-picker">
           <h3 class="cc-group-title">Formules du midi</h3>
           <div class="cc-item" data-name="Menu Sandwich" data-price="8.60" data-qty="0">
-            <div class="cc-item-info"><span class="cc-item-name">Menu Sandwich</span><span class="cc-item-price">8,60&nbsp;€</span></div>
+            <div class="cc-item-info">
+              <span class="cc-item-name">Menu Sandwich</span><span class="cc-item-price">8,60&nbsp;€</span>
+              <select class="cc-flavor" aria-label="Choix du sandwich">
+                <option value="Thon">Thon</option>
+                <option value="Poulet">Poulet</option>
+                <option value="Jambon">Jambon</option>
+                <option value="Vegan">Vegan</option>
+              </select>
+            </div>
             <div class="cc-qty">
               <button type="button" class="cc-qty-btn" data-action="dec" aria-label="Retirer un Menu Sandwich">−</button>
               <span class="cc-qty-value">0</span>
@@ -228,7 +236,15 @@
             </div>
           </div>
           <div class="cc-item" data-name="Menu Quiche" data-price="7.30" data-qty="0">
-            <div class="cc-item-info"><span class="cc-item-name">Menu Quiche</span><span class="cc-item-price">7,30&nbsp;€</span></div>
+            <div class="cc-item-info">
+              <span class="cc-item-name">Menu Quiche</span><span class="cc-item-price">7,30&nbsp;€</span>
+              <select class="cc-flavor" aria-label="Choix de la quiche">
+                <option value="Lorraine">Lorraine</option>
+                <option value="Méditerranéenne">Méditerranéenne</option>
+                <option value="4 fromages">4 fromages</option>
+                <option value="Poireaux">Poireaux</option>
+              </select>
+            </div>
             <div class="cc-qty">
               <button type="button" class="cc-qty-btn" data-action="dec" aria-label="Retirer un Menu Quiche">−</button>
               <span class="cc-qty-value">0</span>
@@ -236,7 +252,14 @@
             </div>
           </div>
           <div class="cc-item" data-name="Menu Pâtes" data-price="10.30" data-qty="0">
-            <div class="cc-item-info"><span class="cc-item-name">Menu Pâtes</span><span class="cc-item-price">10,30&nbsp;€</span></div>
+            <div class="cc-item-info">
+              <span class="cc-item-name">Menu Pâtes <small>(hiver uniquement)</small></span><span class="cc-item-price">10,30&nbsp;€</span>
+              <select class="cc-flavor" aria-label="Choix des pâtes">
+                <option value="Tomate-basilic">Tomate-basilic</option>
+                <option value="Pesto">Pesto</option>
+                <option value="Bolognaise">Bolognaise</option>
+              </select>
+            </div>
             <div class="cc-qty">
               <button type="button" class="cc-qty-btn" data-action="dec" aria-label="Retirer un Menu Pâtes">−</button>
               <span class="cc-qty-value">0</span>
@@ -254,7 +277,15 @@
 
           <h3 class="cc-group-title">À la carte</h3>
           <div class="cc-item" data-name="Sandwich" data-price="5.50" data-qty="0">
-            <div class="cc-item-info"><span class="cc-item-name">Sandwich</span><span class="cc-item-price">5,50&nbsp;€</span></div>
+            <div class="cc-item-info">
+              <span class="cc-item-name">Sandwich</span><span class="cc-item-price">5,50&nbsp;€</span>
+              <select class="cc-flavor" aria-label="Choix du sandwich">
+                <option value="Thon">Thon</option>
+                <option value="Poulet">Poulet</option>
+                <option value="Jambon">Jambon</option>
+                <option value="Vegan">Vegan</option>
+              </select>
+            </div>
             <div class="cc-qty">
               <button type="button" class="cc-qty-btn" data-action="dec" aria-label="Retirer un Sandwich">−</button>
               <span class="cc-qty-value">0</span>
@@ -262,23 +293,38 @@
             </div>
           </div>
           <div class="cc-item" data-name="Panini" data-price="5.50" data-qty="0">
-            <div class="cc-item-info"><span class="cc-item-name">Panini</span><span class="cc-item-price">5,50&nbsp;€</span></div>
+            <div class="cc-item-info">
+              <span class="cc-item-name">Panini</span><span class="cc-item-price">5,50&nbsp;€</span>
+              <select class="cc-flavor" aria-label="Choix du panini">
+                <option value="3 fromages">3 fromages</option>
+                <option value="Saumon">Saumon</option>
+                <option value="Steak">Steak</option>
+              </select>
+            </div>
             <div class="cc-qty">
               <button type="button" class="cc-qty-btn" data-action="dec" aria-label="Retirer un Panini">−</button>
               <span class="cc-qty-value">0</span>
               <button type="button" class="cc-qty-btn" data-action="inc" aria-label="Ajouter un Panini">+</button>
             </div>
           </div>
-          <div class="cc-item" data-name="Wrap" data-price="6.50" data-qty="0">
-            <div class="cc-item-info"><span class="cc-item-name">Wrap</span><span class="cc-item-price">6,50&nbsp;€</span></div>
+          <div class="cc-item" data-name="Wrap Poulet" data-price="6.50" data-qty="0">
+            <div class="cc-item-info"><span class="cc-item-name">Wrap Poulet</span><span class="cc-item-price">6,50&nbsp;€</span></div>
             <div class="cc-qty">
-              <button type="button" class="cc-qty-btn" data-action="dec" aria-label="Retirer un Wrap">−</button>
+              <button type="button" class="cc-qty-btn" data-action="dec" aria-label="Retirer un Wrap Poulet">−</button>
               <span class="cc-qty-value">0</span>
-              <button type="button" class="cc-qty-btn" data-action="inc" aria-label="Ajouter un Wrap">+</button>
+              <button type="button" class="cc-qty-btn" data-action="inc" aria-label="Ajouter un Wrap Poulet">+</button>
             </div>
           </div>
           <div class="cc-item" data-name="Quiche" data-price="4.80" data-qty="0">
-            <div class="cc-item-info"><span class="cc-item-name">Quiche</span><span class="cc-item-price">4,80&nbsp;€</span></div>
+            <div class="cc-item-info">
+              <span class="cc-item-name">Quiche</span><span class="cc-item-price">4,80&nbsp;€</span>
+              <select class="cc-flavor" aria-label="Choix de la quiche">
+                <option value="Lorraine">Lorraine</option>
+                <option value="Méditerranéenne">Méditerranéenne</option>
+                <option value="4 fromages">4 fromages</option>
+                <option value="Poireaux">Poireaux</option>
+              </select>
+            </div>
             <div class="cc-qty">
               <button type="button" class="cc-qty-btn" data-action="dec" aria-label="Retirer une Quiche">−</button>
               <span class="cc-qty-value">0</span>
@@ -286,7 +332,14 @@
             </div>
           </div>
           <div class="cc-item" data-name="Pâtes" data-price="7.80" data-qty="0">
-            <div class="cc-item-info"><span class="cc-item-name">Pâtes</span><span class="cc-item-price">7,80&nbsp;€</span></div>
+            <div class="cc-item-info">
+              <span class="cc-item-name">Pâtes <small>(hiver uniquement)</small></span><span class="cc-item-price">7,80&nbsp;€</span>
+              <select class="cc-flavor" aria-label="Choix des pâtes">
+                <option value="Tomate-basilic">Tomate-basilic</option>
+                <option value="Pesto">Pesto</option>
+                <option value="Bolognaise">Bolognaise</option>
+              </select>
+            </div>
             <div class="cc-qty">
               <button type="button" class="cc-qty-btn" data-action="dec" aria-label="Retirer un Pâtes">−</button>
               <span class="cc-qty-value">0</span>

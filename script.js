@@ -48,8 +48,10 @@ function initClickCollect() {
     items.forEach((item) => {
       const qty = parseInt(item.dataset.qty || "0", 10);
       if (qty > 0) {
+        const flavorEl = item.querySelector(".cc-flavor");
         cart.push({
           name: item.dataset.name,
+          flavor: flavorEl ? flavorEl.value : null,
           price: parseFloat(item.dataset.price),
           qty,
         });
@@ -80,7 +82,7 @@ function initClickCollect() {
       ? cart
           .map(
             (i) =>
-              `<li><span>${i.qty}× ${i.name}</span><span>${formatEuro(i.price * i.qty)}</span></li>`
+              `<li><span>${i.qty}× ${i.name}${i.flavor ? ` (${i.flavor})` : ""}</span><span>${formatEuro(i.price * i.qty)}</span></li>`
           )
           .join("")
       : '<li class="cc-empty">Aucun article sélectionné</li>';
@@ -104,6 +106,9 @@ function initClickCollect() {
 
     dec.addEventListener("click", () => setQty(parseInt(item.dataset.qty || "0", 10) - 1));
     inc.addEventListener("click", () => setQty(parseInt(item.dataset.qty || "0", 10) + 1));
+
+    const flavorEl = item.querySelector(".cc-flavor");
+    if (flavorEl) flavorEl.addEventListener("change", renderCart);
   });
 
   function buildOrderText() {
@@ -114,7 +119,7 @@ function initClickCollect() {
     if (nameInput.value.trim()) lines.push(`Prénom : ${nameInput.value.trim()}`);
     if (timeInput.value.trim()) lines.push(`Retrait souhaité : ${timeInput.value.trim()}`);
     lines.push("");
-    cart.forEach((i) => lines.push(`- ${i.qty}x ${i.name}`));
+    cart.forEach((i) => lines.push(`- ${i.qty}x ${i.name}${i.flavor ? ` (${i.flavor})` : ""}`));
     lines.push("");
     lines.push(`Total : ${formatEuro(total)}`);
     lines.push(paid ? "Réglé via PayPal" : "À régler sur place");
@@ -155,7 +160,10 @@ function initClickCollect() {
               purchase_units: [
                 {
                   amount: { value: total.toFixed(2), currency_code: "EUR" },
-                  description: cart.map((i) => `${i.qty}x ${i.name}`).join(", ").slice(0, 120),
+                  description: cart
+                    .map((i) => `${i.qty}x ${i.name}${i.flavor ? ` (${i.flavor})` : ""}`)
+                    .join(", ")
+                    .slice(0, 120),
                 },
               ],
             });
