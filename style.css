@@ -424,6 +424,7 @@ a { color: inherit; text-decoration: none; }
 .cc-send-btn:disabled, .cc-copy-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 .cc-copy-btn { border-color: rgba(255,255,255,0.3); color: #fff; }
 .cc-copy-btn:hover:not(:disabled) { background: rgba(255,255,255,0.1); }
+.cc-hidden { display: none; }
 
 .cc-note { font-size: 0.78rem; color: #B49B87; margin-top: 16px; }
 

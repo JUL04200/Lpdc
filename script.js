@@ -171,7 +171,8 @@ function initClickCollect() {
             actions.order.capture().then(() => {
               paid = true;
               updateActionButtons(getCart());
-              noticeEl.textContent = "✅ Paiement confirmé ! Envoi du récapitulatif par SMS…";
+              noticeEl.textContent =
+                "✅ Paiement confirmé, merci ! Votre application SMS va s'ouvrir avec votre commande prête à envoyer à la boulangerie — il ne vous reste plus qu'à appuyer sur \"Envoyer\".";
               sendOrderBySms();
             }),
           onError: () => {
