@@ -16,11 +16,9 @@ nav.querySelectorAll("a").forEach((link) => {
 });
 
 // ---- Click & Collect ----
-// Client ID PayPal SANDBOX (mode test, aucun vrai paiement n'est débité).
-// Une fois les tests validés, remplacez-le par le Client ID LIVE
-// (developer.paypal.com > Apps & Credentials > bascule "Live") pour
-// encaisser de vrais paiements.
-const PAYPAL_CLIENT_ID = "AbNVuwB-OpkZeIkBuv_1go_e5ltbGtuMZERcAHVckSGhMHPYV6YBsGD86ge1Z2g3w5bNKCI-hDavAk7C";
+// PayPal retiré (en attente du module Monext CB + titre-restaurant).
+// Pour réactiver un paiement en ligne PayPal, remettez un Client ID ici.
+const PAYPAL_CLIENT_ID = "";
 const SHOP_PHONE = "0699738605";
 const SHOP_NAME = "Le Pain de la Cité";
 
