@@ -16,30 +16,15 @@ nav.querySelectorAll("a").forEach((link) => {
 });
 
 // ---- Click & Collect ----
-// PayPal retiré (en attente du module Monext CB + titre-restaurant).
-// Pour réactiver un paiement en ligne PayPal, remettez un Client ID ici.
-const PAYPAL_CLIENT_ID = "";
-const SHOP_PHONE = "0699738605";
-const SHOP_NAME = "Le Pain de la Cité";
-
+// Paiement en ligne (CB + titre-restaurant via Monext/Conecs) pas encore
+// disponible : le panier est consultable, mais aucune commande ne peut
+// être finalisée pour l'instant. Voir les boutons désactivés dans le HTML.
 function initClickCollect() {
   const items = document.querySelectorAll(".cc-item");
   if (!items.length) return;
 
   const cartListEl = document.getElementById("ccCartList");
   const totalEl = document.getElementById("ccTotal");
-  const sendBtn = document.getElementById("ccSendSms");
-  const copyBtn = document.getElementById("ccCopyOrder");
-  const nameInput = document.getElementById("ccName");
-  const timeInput = document.getElementById("ccTime");
-  const noticeEl = document.getElementById("ccPaypalNotice");
-
-  const paypalReady = () =>
-    Boolean(PAYPAL_CLIENT_ID) && !PAYPAL_CLIENT_ID.startsWith("REMPLACER");
-
-  // Paiement en ligne uniquement : tant que paypalReady() est vrai, l'envoi
-  // de la commande est bloqué jusqu'à un paiement PayPal confirmé.
-  let paid = false;
 
   function getCart() {
     const cart = [];
@@ -66,12 +51,6 @@ function initClickCollect() {
     return n.toFixed(2).replace(".", ",") + " €";
   }
 
-  function updateActionButtons(cart) {
-    const hasItems = cart.length > 0;
-    sendBtn.disabled = !(hasItems && (paid || !paypalReady()));
-    copyBtn.disabled = !hasItems;
-  }
-
   function renderCart() {
     const cart = getCart();
     const total = getTotal(cart);
@@ -86,8 +65,6 @@ function initClickCollect() {
       : '<li class="cc-empty">Aucun article sélectionné</li>';
 
     totalEl.textContent = formatEuro(total);
-    paid = false;
-    updateActionButtons(cart);
   }
 
   items.forEach((item) => {
@@ -107,83 +84,6 @@ function initClickCollect() {
 
     item.querySelectorAll(".cc-flavor").forEach((el) => el.addEventListener("change", renderCart));
   });
-
-  function buildOrderText() {
-    const cart = getCart();
-    const total = getTotal(cart);
-    const lines = [`Commande Click & Collect - ${SHOP_NAME}`];
-
-    if (nameInput.value.trim()) lines.push(`Prénom : ${nameInput.value.trim()}`);
-    if (timeInput.value.trim()) lines.push(`Retrait souhaité : ${timeInput.value.trim()}`);
-    lines.push("");
-    cart.forEach((i) => lines.push(`- ${i.qty}x ${i.name}${i.flavor ? ` (${i.flavor})` : ""}`));
-    lines.push("");
-    lines.push(`Total : ${formatEuro(total)}`);
-    lines.push(paid ? "Réglé via PayPal" : "À régler sur place");
-
-    return lines.join("\n");
-  }
-
-  function sendOrderBySms() {
-    const url = `sms:${SHOP_PHONE}?body=${encodeURIComponent(buildOrderText())}`;
-    window.location.href = url;
-  }
-
-  sendBtn.addEventListener("click", sendOrderBySms);
-
-  copyBtn.addEventListener("click", async () => {
-    const text = buildOrderText();
-    try {
-      await navigator.clipboard.writeText(text);
-      const original = copyBtn.textContent;
-      copyBtn.textContent = "✅ Copié !";
-      setTimeout(() => (copyBtn.textContent = original), 2000);
-    } catch {
-      window.prompt("Copiez votre commande ci-dessous :", text);
-    }
-  });
-
-  if (paypalReady()) {
-    const sdk = document.createElement("script");
-    sdk.src = `https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&currency=EUR&intent=capture`;
-    sdk.onload = () => {
-      window.paypal
-        .Buttons({
-          style: { layout: "vertical", color: "gold", shape: "pill", label: "paypal" },
-          createOrder: (data, actions) => {
-            const cart = getCart();
-            const total = getTotal(cart);
-            return actions.order.create({
-              purchase_units: [
-                {
-                  amount: { value: total.toFixed(2), currency_code: "EUR" },
-                  description: cart
-                    .map((i) => `${i.qty}x ${i.name}${i.flavor ? ` (${i.flavor})` : ""}`)
-                    .join(", ")
-                    .slice(0, 120),
-                },
-              ],
-            });
-          },
-          onApprove: (data, actions) =>
-            actions.order.capture().then(() => {
-              paid = true;
-              updateActionButtons(getCart());
-              noticeEl.textContent =
-                "✅ Paiement confirmé, merci ! Votre application SMS va s'ouvrir avec votre commande prête à envoyer à la boulangerie — il ne vous reste plus qu'à appuyer sur \"Envoyer\".";
-              sendOrderBySms();
-            }),
-          onError: () => {
-            noticeEl.textContent = "Une erreur est survenue avec PayPal. Réessayez ou appelez-nous.";
-          },
-        })
-        .render("#paypal-button-container");
-    };
-    document.body.appendChild(sdk);
-  } else {
-    noticeEl.textContent =
-      "Paiement en ligne bientôt disponible. En attendant, composez votre commande et envoyez-la par SMS — vous réglerez sur place.";
-  }
 
   renderCart();
 }
