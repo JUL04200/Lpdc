@@ -53,9 +53,16 @@ function sendOrderEmail(cart, subtotal, discount, total) {
   });
 }
 
+// DÉMO EN COURS : horaires désactivés temporairement pour montrer le
+// Click & Collect à quelqu'un. Remettre à false pour réactiver le blocage
+// du lundi-vendredi avant 10h30.
+const DEMO_DISABLE_HOURS = true;
+
 // Vrai/faux selon l'heure de Paris : commandes acceptées du lundi au
 // vendredi, avant 10h30 (indépendant du fuseau horaire du visiteur).
 function isClickCollectOpen() {
+  if (DEMO_DISABLE_HOURS) return true;
+
   const parts = new Intl.DateTimeFormat("en-GB", {
     timeZone: "Europe/Paris",
     weekday: "short",
