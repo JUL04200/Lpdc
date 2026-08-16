@@ -311,6 +311,25 @@ a { color: inherit; text-decoration: none; }
   color: var(--terracotta-dark);
 }
 
+.cc-closed {
+  max-width: 560px;
+  margin: 36px auto 0;
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 40px 32px;
+  text-align: center;
+}
+.cc-closed-title {
+  font-family: Georgia, serif;
+  font-size: 1.4rem;
+  color: var(--brown-dark);
+  margin-bottom: 10px;
+}
+.cc-closed-text { color: var(--brown); line-height: 1.6; }
+.cc-closed-text a { color: var(--terracotta-dark); font-weight: 700; text-decoration: underline; }
+
+.cc-layout[hidden] { display: none; }
 .cc-layout {
   display: grid;
   grid-template-columns: 1.3fr 1fr;

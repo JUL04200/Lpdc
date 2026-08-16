@@ -53,9 +53,42 @@ function sendOrderEmail(cart, subtotal, discount, total) {
   });
 }
 
+// Vrai/faux selon l'heure de Paris : commandes acceptées du lundi au
+// vendredi, avant 10h30 (indépendant du fuseau horaire du visiteur).
+function isClickCollectOpen() {
+  const parts = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Europe/Paris",
+    weekday: "short",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  })
+    .formatToParts(new Date())
+    .reduce((acc, p) => ((acc[p.type] = p.value), acc), {});
+
+  const isWeekday = !["Sat", "Sun"].includes(parts.weekday);
+  const beforeCutoff =
+    parseInt(parts.hour, 10) < 10 ||
+    (parseInt(parts.hour, 10) === 10 && parseInt(parts.minute, 10) < 30);
+
+  return isWeekday && beforeCutoff;
+}
+
 function initClickCollect() {
   const items = document.querySelectorAll(".cc-item");
   if (!items.length) return;
+
+  const layoutEl = document.getElementById("ccLayout");
+  const closedEl = document.getElementById("ccClosedNotice");
+
+  function applyOpenState() {
+    const open = isClickCollectOpen();
+    layoutEl.hidden = !open;
+    closedEl.hidden = open;
+  }
+
+  applyOpenState();
+  setInterval(applyOpenState, 60000);
 
   const cartListEl = document.getElementById("ccCartList");
   const subtotalEl = document.getElementById("ccSubtotal");
