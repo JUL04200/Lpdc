@@ -90,6 +90,45 @@ function isClickCollectOpen() {
   return isWeekday && beforeCutoff;
 }
 
+// Prix, visibilité des articles à la carte et liste des desserts pilotés
+// depuis data/menu.json, éditable via l'admin (Decap CMS) sans toucher au
+// code. Un article "masqué" (visible: false) reste dans la page (qty à 0,
+// juste caché avec [hidden]) : le repasser à visible: true dans le CMS le
+// fait réapparaître immédiatement, sans rien recréer.
+function loadMenuData() {
+  return fetch("data/menu.json")
+    .then((res) => (res.ok ? res.json() : null))
+    .catch(() => null);
+}
+
+function applyMenuData(data) {
+  if (!data) return;
+
+  if (Array.isArray(data.alacarte)) {
+    data.alacarte.forEach((entry) => {
+      const item = document.querySelector(`.cc-item[data-name="${CSS.escape(entry.name)}"]`);
+      if (!item) return;
+      if (typeof entry.price === "number") {
+        item.dataset.price = String(entry.price);
+        const priceEl = item.querySelector(".cc-item-price");
+        if (priceEl) priceEl.textContent = formatEuroGlobal(entry.price);
+      }
+      item.hidden = entry.visible === false;
+    });
+  }
+
+  if (Array.isArray(data.desserts)) {
+    const visible = data.desserts.filter((d) => d.visible !== false);
+    document.querySelectorAll('select.cc-flavor[data-dessert-group="sucre"]').forEach((select) => {
+      const current = select.value;
+      select.innerHTML = visible
+        .map((d) => `<option value="${d.value}">Dessert : ${d.label}</option>`)
+        .join("");
+      if (visible.some((d) => d.value === current)) select.value = current;
+    });
+  }
+}
+
 function initClickCollect() {
   const items = document.querySelectorAll(".cc-item");
   if (!items.length) return;
@@ -244,4 +283,6 @@ function initClickCollect() {
   renderCart();
 }
 
-initClickCollect();
+loadMenuData()
+  .then(applyMenuData)
+  .finally(initClickCollect);

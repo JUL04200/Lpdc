@@ -1,0 +1,31 @@
+backend:
+  name: git-gateway
+  branch: claude/pain-cite-bakery-website-ovmc6d
+
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+collections:
+  - name: "menu"
+    label: "Menu Click & Collect"
+    files:
+      - name: "menu"
+        label: "Articles et desserts"
+        file: "data/menu.json"
+        fields:
+          - label: "Articles à la carte"
+            name: "alacarte"
+            widget: "list"
+            summary: "{{fields.name}} — {{fields.price}} €"
+            fields:
+              - { label: "Nom de l'article", name: "name", widget: "string" }
+              - { label: "Prix (€)", name: "price", widget: "number", value_type: "float" }
+              - { label: "Visible sur le site (décochez pour le retirer, recochez pour le remettre)", name: "visible", widget: "boolean", default: true }
+          - label: "Choix de dessert (formules du midi)"
+            name: "desserts"
+            widget: "list"
+            summary: "{{fields.label}}"
+            fields:
+              - { label: "Valeur technique (ne pas modifier)", name: "value", widget: "string" }
+              - { label: "Texte affiché au client", name: "label", widget: "string" }
+              - { label: "Visible sur le site (décochez pour le retirer, recochez pour le remettre)", name: "visible", widget: "boolean", default: true }
