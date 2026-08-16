@@ -99,6 +99,11 @@
       "name": "Bouteille 50cl",
       "price": 2.8,
       "visible": true
+    },
+    {
+      "name": "Volvic",
+      "price": 2.5,
+      "visible": true
     }
   ]
 }
