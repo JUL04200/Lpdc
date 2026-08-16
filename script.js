@@ -62,16 +62,9 @@ function sendOrderEmail(cart, subtotal, discount, total, name, pickupTime, order
   });
 }
 
-// DÉMO EN COURS : horaires désactivés temporairement pour montrer le
-// Click & Collect à quelqu'un. Remettre à false pour réactiver le blocage
-// du lundi-vendredi avant 10h30.
-const DEMO_DISABLE_HOURS = true;
-
 // Vrai/faux selon l'heure de Paris : commandes acceptées du lundi au
-// vendredi, avant 10h30 (indépendant du fuseau horaire du visiteur).
+// vendredi, avant 11h (indépendant du fuseau horaire du visiteur).
 function isClickCollectOpen() {
-  if (DEMO_DISABLE_HOURS) return true;
-
   const parts = new Intl.DateTimeFormat("en-GB", {
     timeZone: "Europe/Paris",
     weekday: "short",
@@ -83,9 +76,7 @@ function isClickCollectOpen() {
     .reduce((acc, p) => ((acc[p.type] = p.value), acc), {});
 
   const isWeekday = !["Sat", "Sun"].includes(parts.weekday);
-  const beforeCutoff =
-    parseInt(parts.hour, 10) < 10 ||
-    (parseInt(parts.hour, 10) === 10 && parseInt(parts.minute, 10) < 30);
+  const beforeCutoff = parseInt(parts.hour, 10) < 11;
 
   return isWeekday && beforeCutoff;
 }
@@ -215,18 +206,12 @@ function initClickCollect() {
   const subtotalEl = document.getElementById("ccSubtotal");
   const discountEl = document.getElementById("ccDiscount");
   const totalEl = document.getElementById("ccTotal");
-  const payDemoBtn = document.getElementById("ccPayDemo");
-  const payDemoNoticeEl = document.getElementById("ccPayDemoNotice");
   const nameInput = document.getElementById("ccName");
   const timeInput = document.getElementById("ccTime");
   const orderModal = document.getElementById("ccOrderModal");
   const orderNumberEl = document.getElementById("ccOrderNumber");
   const orderModalCloseBtn = document.getElementById("ccOrderModalClose");
   const DISCOUNT_RATE = 0.05;
-
-  function fieldsFilled() {
-    return Boolean(nameInput.value.trim() && timeInput.value.trim());
-  }
 
   orderModalCloseBtn.addEventListener("click", () => {
     orderModal.hidden = true;
@@ -292,49 +277,7 @@ function initClickCollect() {
     subtotalEl.textContent = formatEuro(subtotal);
     discountEl.textContent = "-" + formatEuro(discount);
     totalEl.textContent = formatEuro(total);
-    payDemoBtn.disabled = cart.length === 0 || !fieldsFilled();
-    payDemoNoticeEl.textContent = "";
   }
-
-  [nameInput, timeInput].forEach((el) =>
-    el.addEventListener("input", () => {
-      payDemoBtn.disabled = currentCart.length === 0 || !fieldsFilled();
-    })
-  );
-
-  payDemoBtn.addEventListener("click", () => {
-    if (!fieldsFilled()) {
-      payDemoNoticeEl.textContent = "⚠️ Merci de renseigner le nom et l'heure de retrait.";
-      payDemoNoticeEl.style.color = "#E23B3B";
-      return;
-    }
-    payDemoBtn.disabled = true;
-    payDemoBtn.textContent = "Envoi en cours…";
-    const orderNumber = generateOrderNumber();
-    sendOrderEmail(
-      currentCart,
-      currentSubtotal,
-      currentDiscount,
-      currentTotal,
-      nameInput.value.trim(),
-      timeInput.value.trim(),
-      orderNumber
-    )
-      .then(() => {
-        payDemoNoticeEl.textContent = "";
-        orderNumberEl.textContent = orderNumber;
-        orderModal.hidden = false;
-      })
-      .catch((err) => {
-        const reason = (err && (err.text || err.message)) || String(err);
-        payDemoNoticeEl.textContent = "❌ Échec de l'envoi : " + reason;
-        payDemoNoticeEl.style.color = "#E23B3B";
-      })
-      .finally(() => {
-        payDemoBtn.disabled = currentCart.length === 0 || !fieldsFilled();
-        payDemoBtn.textContent = "💳 Payer";
-      });
-  });
 
   items.forEach((item) => {
     const dec = item.querySelector('[data-action="dec"]');
