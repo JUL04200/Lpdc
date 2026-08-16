@@ -25,3 +25,4 @@ collections:
               - { label: "Prix (€)", name: "price", widget: "number", value_type: "float" }
               - { label: "Visible sur le site (décochez pour le retirer, recochez pour le remettre)", name: "visible", widget: "boolean", default: true }
               - { label: "Proposer aussi comme dessert dans les formules du midi", name: "dessertOption", widget: "boolean", default: false, required: false }
+              - { label: "Formule du midi liée (masquée/affichée en même temps que cet article, ex. \"Menu Pâtes\")", name: "linkedMenu", widget: "string", required: false }

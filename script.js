@@ -162,6 +162,14 @@ function applyMenuData(data) {
         if (priceEl) priceEl.textContent = formatEuroGlobal(entry.price);
       }
       item.hidden = entry.visible === false;
+
+      // Un article à la carte peut être lié à une formule du midi qui sert
+      // le même plat (ex. Pâtes -> Menu Pâtes) : masquer l'un masque
+      // l'autre, un seul interrupteur "Visible" suffit pour les deux.
+      if (entry.linkedMenu) {
+        const linked = document.querySelector(`.cc-item[data-name="${CSS.escape(entry.linkedMenu)}"]`);
+        if (linked) linked.hidden = entry.visible === false;
+      }
     });
   }
 

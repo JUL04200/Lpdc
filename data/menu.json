@@ -3,7 +3,8 @@
     {
       "name": "Sandwich",
       "price": 5.5,
-      "visible": true
+      "visible": true,
+      "linkedMenu": "Menu Sandwich"
     },
     {
       "name": "Pain bagnat",
@@ -28,12 +29,14 @@
     {
       "name": "Quiche",
       "price": 4.8,
-      "visible": true
+      "visible": true,
+      "linkedMenu": "Menu Quiche"
     },
     {
       "name": "Pâtes",
       "price": 7.8,
-      "visible": false
+      "visible": false,
+      "linkedMenu": "Menu Pâtes"
     },
     {
       "name": "Flan",
