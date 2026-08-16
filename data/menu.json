@@ -13,7 +13,7 @@
     {
       "name": "Club sandwich",
       "price": 5.5,
-      "visible": false
+      "visible": true
     },
     {
       "name": "Panini",
