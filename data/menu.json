@@ -81,6 +81,12 @@
       "name": "Canette",
       "price": 2.2,
       "visible": true
+    },
+    {
+      "visible": true,
+      "dessertOption": false,
+      "name": "Bagnat thon",
+      "price": 6.5
     }
   ]
 }
