@@ -104,6 +104,16 @@
       "name": "Volvic",
       "price": 2.5,
       "visible": true
+    },
+    {
+      "name": "Granini",
+      "price": 2.5,
+      "visible": true
+    },
+    {
+      "name": "Minute Maid",
+      "price": 2.2,
+      "visible": true
     }
   ]
 }
