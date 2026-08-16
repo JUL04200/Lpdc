@@ -36,10 +36,15 @@ function formatEuroGlobal(n) {
   return n.toFixed(2).replace(".", ",") + " €";
 }
 
-function buildOrderEmailMessage(cart, subtotal, discount, total, lastName, firstName, pickupTime) {
+function generateOrderNumber() {
+  const digits = Math.floor(100000 + Math.random() * 900000);
+  return `LPC-${digits}`;
+}
+
+function buildOrderEmailMessage(cart, subtotal, discount, total, name, pickupTime, orderNumber) {
   const lines = ["Nouvelle commande Click & Collect - Le Pain de la Cité", ""];
-  lines.push(`Nom : ${lastName}`);
-  lines.push(`Prénom : ${firstName}`);
+  lines.push(`Numéro de commande : ${orderNumber}`);
+  lines.push(`Nom : ${name}`);
   lines.push(`Heure de retrait souhaitée : ${pickupTime}`);
   lines.push("");
   cart.forEach((i) => lines.push(`- ${i.qty}x ${i.name}${i.flavor ? ` (${i.flavor})` : ""}`));
@@ -50,10 +55,10 @@ function buildOrderEmailMessage(cart, subtotal, discount, total, lastName, first
   return lines.join("\n");
 }
 
-function sendOrderEmail(cart, subtotal, discount, total, lastName, firstName, pickupTime) {
+function sendOrderEmail(cart, subtotal, discount, total, name, pickupTime, orderNumber) {
   if (!window.emailjs) return Promise.reject(new Error("EmailJS non chargé"));
   return emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-    message: buildOrderEmailMessage(cart, subtotal, discount, total, lastName, firstName, pickupTime),
+    message: buildOrderEmailMessage(cart, subtotal, discount, total, name, pickupTime, orderNumber),
   });
 }
 
@@ -107,14 +112,20 @@ function initClickCollect() {
   const totalEl = document.getElementById("ccTotal");
   const payDemoBtn = document.getElementById("ccPayDemo");
   const payDemoNoticeEl = document.getElementById("ccPayDemoNotice");
-  const lastNameInput = document.getElementById("ccLastName");
-  const firstNameInput = document.getElementById("ccFirstName");
+  const nameInput = document.getElementById("ccName");
   const timeInput = document.getElementById("ccTime");
+  const orderModal = document.getElementById("ccOrderModal");
+  const orderNumberEl = document.getElementById("ccOrderNumber");
+  const orderModalCloseBtn = document.getElementById("ccOrderModalClose");
   const DISCOUNT_RATE = 0.05;
 
   function fieldsFilled() {
-    return Boolean(lastNameInput.value.trim() && firstNameInput.value.trim() && timeInput.value.trim());
+    return Boolean(nameInput.value.trim() && timeInput.value.trim());
   }
+
+  orderModalCloseBtn.addEventListener("click", () => {
+    orderModal.hidden = true;
+  });
 
   function getCart() {
     const cart = [];
@@ -172,7 +183,7 @@ function initClickCollect() {
     payDemoNoticeEl.textContent = "";
   }
 
-  [lastNameInput, firstNameInput, timeInput].forEach((el) =>
+  [nameInput, timeInput].forEach((el) =>
     el.addEventListener("input", () => {
       payDemoBtn.disabled = currentCart.length === 0 || !fieldsFilled();
     })
@@ -180,24 +191,26 @@ function initClickCollect() {
 
   payDemoBtn.addEventListener("click", () => {
     if (!fieldsFilled()) {
-      payDemoNoticeEl.textContent = "⚠️ Merci de renseigner nom, prénom et heure de retrait.";
+      payDemoNoticeEl.textContent = "⚠️ Merci de renseigner le nom et l'heure de retrait.";
       payDemoNoticeEl.style.color = "#E23B3B";
       return;
     }
     payDemoBtn.disabled = true;
     payDemoBtn.textContent = "Envoi en cours…";
+    const orderNumber = generateOrderNumber();
     sendOrderEmail(
       currentCart,
       currentSubtotal,
       currentDiscount,
       currentTotal,
-      lastNameInput.value.trim(),
-      firstNameInput.value.trim(),
-      timeInput.value.trim()
+      nameInput.value.trim(),
+      timeInput.value.trim(),
+      orderNumber
     )
       .then(() => {
-        payDemoNoticeEl.textContent = "✅ Commande envoyée ! Un email vient d'arriver sur lpdc63@gmail.com.";
-        payDemoNoticeEl.style.color = "#7FA65C";
+        payDemoNoticeEl.textContent = "";
+        orderNumberEl.textContent = orderNumber;
+        orderModal.hidden = false;
       })
       .catch((err) => {
         const reason = (err && (err.text || err.message)) || String(err);

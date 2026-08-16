@@ -487,10 +487,8 @@
           </div>
 
           <div class="cc-fields">
-            <label for="ccLastName">Nom *</label>
-            <input type="text" id="ccLastName" required>
-            <label for="ccFirstName">Prénom *</label>
-            <input type="text" id="ccFirstName" required>
+            <label for="ccName">Nom *</label>
+            <input type="text" id="ccName" required>
             <label for="ccTime">Heure de retrait souhaitée *</label>
             <input type="text" id="ccTime" placeholder="ex. 12h30" required>
           </div>
@@ -507,6 +505,17 @@
           <button type="button" id="ccPayDemo" class="btn btn-primary btn-large" disabled>💳 Payer</button>
           <p id="ccPayDemoNotice" class="cc-note"></p>
         </div>
+      </div>
+    </div>
+
+    <div id="ccOrderModal" class="cc-modal" hidden>
+      <div class="cc-modal-box">
+        <p class="cc-modal-icon">✅</p>
+        <h3>Commande envoyée !</h3>
+        <p>Votre numéro de commande est le</p>
+        <p id="ccOrderNumber" class="cc-modal-number"></p>
+        <p class="cc-modal-text">Un récapitulatif a été envoyé à la boulangerie. Merci de vous présenter à l'heure de retrait choisie.</p>
+        <button type="button" id="ccOrderModalClose" class="btn btn-primary">Fermer</button>
       </div>
     </div>
   </section>
