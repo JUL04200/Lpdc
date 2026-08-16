@@ -62,9 +62,15 @@ function sendOrderEmail(cart, subtotal, discount, total, name, pickupTime, order
   });
 }
 
+// Horaires temporairement débloqués sur demande. Remettre à false pour
+// réactiver le blocage du lundi-vendredi avant 11h.
+const DISABLE_HOURS_LIMIT = true;
+
 // Vrai/faux selon l'heure de Paris : commandes acceptées du lundi au
 // vendredi, avant 11h (indépendant du fuseau horaire du visiteur).
 function isClickCollectOpen() {
+  if (DISABLE_HOURS_LIMIT) return true;
+
   const parts = new Intl.DateTimeFormat("en-GB", {
     timeZone: "Europe/Paris",
     weekday: "short",
