@@ -101,12 +101,60 @@ function loadMenuData() {
     .catch(() => null);
 }
 
+// Construit un article "à la carte" simple (nom, prix, +/-, pas de choix
+// de saveur) pour un article ajouté depuis l'admin qui n'a pas encore de
+// case correspondante toute faite sur la page.
+function createAlacarteItem(entry) {
+  const item = document.createElement("div");
+  item.className = "cc-item";
+  item.dataset.name = entry.name;
+  item.dataset.price = String(entry.price);
+  item.dataset.qty = "0";
+
+  const info = document.createElement("div");
+  info.className = "cc-item-info";
+  const nameEl = document.createElement("span");
+  nameEl.className = "cc-item-name";
+  nameEl.textContent = entry.name;
+  const priceEl = document.createElement("span");
+  priceEl.className = "cc-item-price";
+  priceEl.textContent = formatEuroGlobal(entry.price);
+  info.append(nameEl, priceEl);
+
+  const qty = document.createElement("div");
+  qty.className = "cc-qty";
+  const dec = document.createElement("button");
+  dec.type = "button";
+  dec.className = "cc-qty-btn";
+  dec.dataset.action = "dec";
+  dec.setAttribute("aria-label", `Retirer un ${entry.name}`);
+  dec.textContent = "−";
+  const value = document.createElement("span");
+  value.className = "cc-qty-value";
+  value.textContent = "0";
+  const inc = document.createElement("button");
+  inc.type = "button";
+  inc.className = "cc-qty-btn";
+  inc.dataset.action = "inc";
+  inc.setAttribute("aria-label", `Ajouter un ${entry.name}`);
+  inc.textContent = "+";
+  qty.append(dec, value, inc);
+
+  item.append(info, qty);
+  return item;
+}
+
 function applyMenuData(data) {
   if (!data) return;
 
   if (Array.isArray(data.alacarte)) {
+    const picker = document.querySelector(".cc-picker");
     data.alacarte.forEach((entry) => {
-      const item = document.querySelector(`.cc-item[data-name="${CSS.escape(entry.name)}"]`);
+      let item = document.querySelector(`.cc-item[data-name="${CSS.escape(entry.name)}"]`);
+      if (!item && picker && typeof entry.price === "number") {
+        item = createAlacarteItem(entry);
+        picker.appendChild(item);
+      }
       if (!item) return;
       if (typeof entry.price === "number") {
         item.dataset.price = String(entry.price);
