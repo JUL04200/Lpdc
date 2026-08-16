@@ -1,7 +1,8 @@
-exports.handler = async (event) => {
+module.exports = (req, res) => {
   const clientId = process.env.OAUTH_CLIENT_ID;
-  const host = event.headers["x-forwarded-host"] || event.headers.host;
-  const redirectUri = `https://${host}/callback`;
+  const host = req.headers["x-forwarded-host"] || req.headers.host;
+  const proto = req.headers["x-forwarded-proto"] || "https";
+  const redirectUri = `${proto}://${host}/api/callback`;
   const state = Math.random().toString(36).slice(2);
 
   const authorizeUrl =
@@ -11,8 +12,6 @@ exports.handler = async (event) => {
     "&scope=repo" +
     `&state=${state}`;
 
-  return {
-    statusCode: 302,
-    headers: { Location: authorizeUrl },
-  };
+  res.writeHead(302, { Location: authorizeUrl });
+  res.end();
 };

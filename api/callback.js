@@ -34,10 +34,14 @@ function exchangeCodeForToken(code) {
   });
 }
 
-exports.handler = async (event) => {
-  const code = event.queryStringParameters && event.queryStringParameters.code;
+module.exports = async (req, res) => {
+  const code = req.query && req.query.code;
+  res.setHeader("Content-Type", "text/html");
+
   if (!code) {
-    return { statusCode: 400, body: "Missing code" };
+    res.statusCode = 400;
+    res.end("Missing code");
+    return;
   }
 
   let token;
@@ -48,35 +52,28 @@ exports.handler = async (event) => {
     }
     token = result.access_token;
   } catch (err) {
-    return {
-      statusCode: 200,
-      headers: { "Content-Type": "text/html" },
-      body: `<script>
-        window.opener.postMessage(
-          'authorization:github:error:${JSON.stringify(String(err.message))}',
-          '*'
-        );
-        window.close();
-      </script>`,
-    };
+    res.end(`<script>
+      window.opener.postMessage(
+        'authorization:github:error:${JSON.stringify(String(err.message))}',
+        '*'
+      );
+      window.close();
+    </script>`);
+    return;
   }
 
   const message = JSON.stringify({ token, provider: "github" });
-  return {
-    statusCode: 200,
-    headers: { "Content-Type": "text/html" },
-    body: `<script>
-      (function() {
-        function receiveMessage(e) {
-          window.opener.postMessage(
-            'authorization:github:success:${message}',
-            e.origin
-          );
-          window.removeEventListener("message", receiveMessage, false);
-        }
-        window.addEventListener("message", receiveMessage, false);
-        window.opener.postMessage("authorizing:github", "*");
-      })();
-    </script>`,
-  };
+  res.end(`<script>
+    (function() {
+      function receiveMessage(e) {
+        window.opener.postMessage(
+          'authorization:github:success:${message}',
+          e.origin
+        );
+        window.removeEventListener("message", receiveMessage, false);
+      }
+      window.addEventListener("message", receiveMessage, false);
+      window.opener.postMessage("authorizing:github", "*");
+    })();
+  </script>`);
 };

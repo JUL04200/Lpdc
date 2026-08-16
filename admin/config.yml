@@ -2,8 +2,8 @@ backend:
   name: github
   repo: JUL04200/Lpdc
   branch: claude/pain-cite-bakery-website-ovmc6d
-  base_url: https://lpdc-admin.netlify.app
-  auth_endpoint: auth
+  base_url: https://REMPLACER-PAR-VOTRE-PROJET.vercel.app
+  auth_endpoint: api/auth
 
 media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
