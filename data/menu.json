@@ -91,12 +91,6 @@
       "name": "Canette",
       "price": 2.2,
       "visible": true
-    },
-    {
-      "visible": true,
-      "dessertOption": false,
-      "name": "caca",
-      "price": 1
     }
   ]
 }
