@@ -3,7 +3,7 @@
     {
       "name": "Sandwich",
       "price": 5.5,
-      "visible": false,
+      "visible": true,
       "linkedMenu": "Menu Sandwich"
     },
     {
