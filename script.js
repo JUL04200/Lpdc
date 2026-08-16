@@ -24,7 +24,10 @@ function initClickCollect() {
   if (!items.length) return;
 
   const cartListEl = document.getElementById("ccCartList");
+  const subtotalEl = document.getElementById("ccSubtotal");
+  const discountEl = document.getElementById("ccDiscount");
   const totalEl = document.getElementById("ccTotal");
+  const DISCOUNT_RATE = 0.05;
 
   function getCart() {
     const cart = [];
@@ -53,7 +56,9 @@ function initClickCollect() {
 
   function renderCart() {
     const cart = getCart();
-    const total = getTotal(cart);
+    const subtotal = getTotal(cart);
+    const discount = subtotal * DISCOUNT_RATE;
+    const total = subtotal - discount;
 
     cartListEl.innerHTML = cart.length
       ? cart
@@ -64,6 +69,8 @@ function initClickCollect() {
           .join("")
       : '<li class="cc-empty">Aucun article sélectionné</li>';
 
+    subtotalEl.textContent = formatEuro(subtotal);
+    discountEl.textContent = "-" + formatEuro(discount);
     totalEl.textContent = formatEuro(total);
   }
 
