@@ -58,7 +58,7 @@
     {
       "name": "Apple Cake",
       "price": 3.5,
-      "visible": false,
+      "visible": true,
       "dessertOption": true
     },
     {
