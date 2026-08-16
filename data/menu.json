@@ -33,17 +33,17 @@
     {
       "name": "Cheesecake",
       "price": 3.5,
-      "visible": true
+      "visible": false
     },
     {
       "name": "Apple Cake",
       "price": 3.5,
-      "visible": true
+      "visible": false
     },
     {
       "name": "Cookie",
       "price": 2.2,
-      "visible": true
+      "visible": false
     },
     {
       "name": "Croissant",
@@ -85,7 +85,7 @@
     {
       "value": "Cheesecake",
       "label": "cheesecake",
-      "visible": true
+      "visible": false
     },
     {
       "value": "Apple Cake",
@@ -95,7 +95,7 @@
     {
       "value": "Cookie",
       "label": "cookie",
-      "visible": true
+      "visible": false
     }
   ]
 }
