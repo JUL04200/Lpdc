@@ -37,8 +37,7 @@ function formatEuroGlobal(n) {
 }
 
 function generateOrderNumber() {
-  const digits = Math.floor(100000 + Math.random() * 900000);
-  return `LPC-${digits}`;
+  return String(Math.floor(10 + Math.random() * 90));
 }
 
 function buildOrderEmailMessage(cart, subtotal, discount, total, name, pickupTime, orderNumber) {
