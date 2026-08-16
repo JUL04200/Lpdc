@@ -33,7 +33,7 @@
     {
       "name": "Pâtes",
       "price": 7.8,
-      "visible": true
+      "visible": false
     },
     {
       "name": "Flan",
