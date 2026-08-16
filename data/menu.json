@@ -23,7 +23,7 @@
     {
       "name": "Pâtes",
       "price": 7.8,
-      "visible": false
+      "visible": true
     },
     {
       "name": "Flan",
@@ -58,7 +58,7 @@
     {
       "name": "Apple Cake",
       "price": 3.5,
-      "visible": true,
+      "visible": false,
       "dessertOption": true
     },
     {
