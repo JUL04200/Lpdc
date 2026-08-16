@@ -237,11 +237,19 @@ function initClickCollect() {
     items.forEach((item) => {
       const qty = parseInt(item.dataset.qty || "0", 10);
       if (qty > 0) {
-        const choices = Array.from(item.querySelectorAll(".cc-flavor")).map((el) => el.value);
+        const flavorSelects = Array.from(item.querySelectorAll(".cc-flavor"));
+        const choices = flavorSelects.map((el) => el.value);
+        // Certains choix (ex. Granini ou Bouteille 50cl à la place de la
+        // boisson incluse dans une formule) ajoutent un supplément au prix
+        // de base, porté par l'attribut data-surcharge de l'option choisie.
+        const surcharge = flavorSelects.reduce((sum, el) => {
+          const opt = el.options[el.selectedIndex];
+          return sum + (opt && opt.dataset.surcharge ? parseFloat(opt.dataset.surcharge) : 0);
+        }, 0);
         cart.push({
           name: item.dataset.name,
           flavor: choices.length ? choices.join(", ") : null,
-          price: parseFloat(item.dataset.price),
+          price: parseFloat(item.dataset.price) + surcharge,
           qty,
         });
       }
