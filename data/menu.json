@@ -33,17 +33,20 @@
     {
       "name": "Cheesecake",
       "price": 3.5,
-      "visible": false
+      "visible": false,
+      "dessertOption": true
     },
     {
       "name": "Apple Cake",
       "price": 3.5,
-      "visible": false
+      "visible": false,
+      "dessertOption": true
     },
     {
       "name": "Cookie",
       "price": 2.2,
-      "visible": false
+      "visible": false,
+      "dessertOption": true
     },
     {
       "name": "Croissant",
@@ -81,21 +84,6 @@
       "value": "Muffin Milka",
       "label": "muffin Milka",
       "visible": true
-    },
-    {
-      "value": "Cheesecake",
-      "label": "cheesecake",
-      "visible": false
-    },
-    {
-      "value": "Apple Cake",
-      "label": "apple cake",
-      "visible": false
-    },
-    {
-      "value": "Cookie",
-      "label": "cookie",
-      "visible": false
     }
   ]
 }

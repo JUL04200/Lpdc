@@ -117,16 +117,26 @@ function applyMenuData(data) {
     });
   }
 
-  if (Array.isArray(data.desserts)) {
-    const visible = data.desserts.filter((d) => d.visible !== false);
-    document.querySelectorAll('select.cc-flavor[data-dessert-group="sucre"]').forEach((select) => {
-      const current = select.value;
-      select.innerHTML = visible
-        .map((d) => `<option value="${d.value}">Dessert : ${d.label}</option>`)
-        .join("");
-      if (visible.some((d) => d.value === current)) select.value = current;
-    });
+  // Les articles à la carte marqués "dessertOption" (ex. cheesecake, apple
+  // cake, cookie) apparaissent aussi dans la liste des desserts des
+  // formules, en suivant le même prix/visibilité que l'article à la carte :
+  // un seul interrupteur "Visible" dans le CMS suffit pour les deux.
+  const dessertOptions = Array.isArray(data.desserts)
+    ? data.desserts.filter((d) => d.visible !== false)
+    : [];
+  if (Array.isArray(data.alacarte)) {
+    data.alacarte
+      .filter((entry) => entry.dessertOption && entry.visible !== false)
+      .forEach((entry) => dessertOptions.push({ value: entry.name, label: entry.name.toLowerCase() }));
   }
+
+  document.querySelectorAll('select.cc-flavor[data-dessert-group="sucre"]').forEach((select) => {
+    const current = select.value;
+    select.innerHTML = dessertOptions
+      .map((d) => `<option value="${d.value}">Dessert : ${d.label}</option>`)
+      .join("");
+    if (dessertOptions.some((d) => d.value === current)) select.value = current;
+  });
 }
 
 function initClickCollect() {

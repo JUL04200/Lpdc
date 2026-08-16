@@ -24,7 +24,8 @@ collections:
               - { label: "Nom de l'article", name: "name", widget: "string" }
               - { label: "Prix (€)", name: "price", widget: "number", value_type: "float" }
               - { label: "Visible sur le site (décochez pour le retirer, recochez pour le remettre)", name: "visible", widget: "boolean", default: true }
-          - label: "Choix de dessert (formules du midi)"
+              - { label: "Proposer aussi comme dessert dans les formules du midi", name: "dessertOption", widget: "boolean", default: false, required: false }
+          - label: "Autres desserts des formules (non vendus seuls à la carte)"
             name: "desserts"
             widget: "list"
             summary: "{{fields.label}}"
