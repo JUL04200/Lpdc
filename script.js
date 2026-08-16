@@ -94,6 +94,8 @@ function initClickCollect() {
   const subtotalEl = document.getElementById("ccSubtotal");
   const discountEl = document.getElementById("ccDiscount");
   const totalEl = document.getElementById("ccTotal");
+  const payDemoBtn = document.getElementById("ccPayDemo");
+  const payDemoNoticeEl = document.getElementById("ccPayDemoNotice");
   const DISCOUNT_RATE = 0.05;
 
   function getCart() {
@@ -148,7 +150,28 @@ function initClickCollect() {
     subtotalEl.textContent = formatEuro(subtotal);
     discountEl.textContent = "-" + formatEuro(discount);
     totalEl.textContent = formatEuro(total);
+    payDemoBtn.disabled = cart.length === 0;
+    payDemoNoticeEl.textContent = "";
   }
+
+  payDemoBtn.addEventListener("click", () => {
+    payDemoBtn.disabled = true;
+    payDemoBtn.textContent = "Envoi en cours…";
+    sendOrderEmail(currentCart, currentSubtotal, currentDiscount, currentTotal)
+      .then(() => {
+        payDemoNoticeEl.textContent = "✅ Commande envoyée ! Un email vient d'arriver sur lpdc63@gmail.com.";
+        payDemoNoticeEl.style.color = "#7FA65C";
+      })
+      .catch((err) => {
+        const reason = (err && (err.text || err.message)) || String(err);
+        payDemoNoticeEl.textContent = "❌ Échec de l'envoi : " + reason;
+        payDemoNoticeEl.style.color = "#E23B3B";
+      })
+      .finally(() => {
+        payDemoBtn.disabled = false;
+        payDemoBtn.textContent = "💳 Payer";
+      });
+  });
 
   items.forEach((item) => {
     const dec = item.querySelector('[data-action="dec"]');
