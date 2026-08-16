@@ -114,6 +114,21 @@
       "name": "Minute Maid",
       "price": 2.2,
       "visible": true
+    },
+    {
+      "name": "Evian",
+      "price": 1.8,
+      "visible": true
+    },
+    {
+      "name": "San Pellegrino",
+      "price": 1.8,
+      "visible": true
+    },
+    {
+      "name": "Cristaline",
+      "price": 1.0,
+      "visible": true
     }
   ]
 }
