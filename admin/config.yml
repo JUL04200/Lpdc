@@ -2,7 +2,7 @@ backend:
   name: github
   repo: JUL04200/Lpdc
   branch: claude/pain-cite-bakery-website-ovmc6d
-  base_url: https://REMPLACER-PAR-VOTRE-PROJET.vercel.app
+  base_url: https://lepaindelacite.com
   auth_endpoint: api/auth
 
 media_folder: "assets/uploads"
