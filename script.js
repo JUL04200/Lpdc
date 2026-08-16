@@ -61,6 +61,8 @@ function initClickCollect() {
   const subtotalEl = document.getElementById("ccSubtotal");
   const discountEl = document.getElementById("ccDiscount");
   const totalEl = document.getElementById("ccTotal");
+  const testPayBtn = document.getElementById("ccTestPay");
+  const testNoticeEl = document.getElementById("ccTestNotice");
   const DISCOUNT_RATE = 0.05;
 
   function getCart() {
@@ -88,11 +90,20 @@ function initClickCollect() {
     return n.toFixed(2).replace(".", ",") + " €";
   }
 
+  let currentCart = [];
+  let currentSubtotal = 0;
+  let currentDiscount = 0;
+  let currentTotal = 0;
+
   function renderCart() {
     const cart = getCart();
     const subtotal = getTotal(cart);
     const discount = subtotal * DISCOUNT_RATE;
     const total = subtotal - discount;
+    currentCart = cart;
+    currentSubtotal = subtotal;
+    currentDiscount = discount;
+    currentTotal = total;
 
     cartListEl.innerHTML = cart.length
       ? cart
@@ -106,7 +117,28 @@ function initClickCollect() {
     subtotalEl.textContent = formatEuro(subtotal);
     discountEl.textContent = "-" + formatEuro(discount);
     totalEl.textContent = formatEuro(total);
+    testPayBtn.disabled = cart.length === 0;
+    testNoticeEl.textContent = "";
   }
+
+  testPayBtn.addEventListener("click", () => {
+    testPayBtn.disabled = true;
+    testPayBtn.textContent = "Envoi en cours…";
+    sendOrderEmail(currentCart, currentSubtotal, currentDiscount, currentTotal)
+      .then(() => {
+        testNoticeEl.textContent = "✅ Email de test envoyé à lpdc63@gmail.com — vérifie ta boîte de réception.";
+        testNoticeEl.style.color = "#7FA65C";
+      })
+      .catch((err) => {
+        const reason = (err && (err.text || err.message)) || String(err);
+        testNoticeEl.textContent = "❌ Échec de l'envoi : " + reason;
+        testNoticeEl.style.color = "#E23B3B";
+      })
+      .finally(() => {
+        testPayBtn.disabled = false;
+        testPayBtn.textContent = "🧪 TEST — Payer (envoie l'email)";
+      });
+  });
 
   items.forEach((item) => {
     const dec = item.querySelector('[data-action="dec"]');
