@@ -19,6 +19,40 @@ nav.querySelectorAll("a").forEach((link) => {
 // Paiement en ligne (CB + titre-restaurant via Monext/Conecs) pas encore
 // disponible : le panier est consultable, mais aucune commande ne peut
 // être finalisée pour l'instant. Voir les boutons désactivés dans le HTML.
+
+// Notification automatique par email (EmailJS) une fois la commande payée.
+// Remplace le SMS manuel : dès qu'un paiement Monext aboutit, appeler
+// sendOrderEmail(cart, subtotal, discount, total) depuis le futur
+// gestionnaire de succès de paiement.
+const EMAILJS_SERVICE_ID = "service_carcj63";
+const EMAILJS_TEMPLATE_ID = "template_uic83b7";
+const EMAILJS_PUBLIC_KEY = "py6_7IyPbRAmN4CJz";
+
+if (window.emailjs) {
+  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+}
+
+function formatEuroGlobal(n) {
+  return n.toFixed(2).replace(".", ",") + " €";
+}
+
+function buildOrderEmailMessage(cart, subtotal, discount, total) {
+  const lines = ["Nouvelle commande Click & Collect - Le Pain de la Cité", ""];
+  cart.forEach((i) => lines.push(`- ${i.qty}x ${i.name}${i.flavor ? ` (${i.flavor})` : ""}`));
+  lines.push("");
+  lines.push(`Sous-total : ${formatEuroGlobal(subtotal)}`);
+  lines.push(`Réduction Click & Collect (-5%) : -${formatEuroGlobal(discount)}`);
+  lines.push(`Total payé : ${formatEuroGlobal(total)}`);
+  return lines.join("\n");
+}
+
+function sendOrderEmail(cart, subtotal, discount, total) {
+  if (!window.emailjs) return Promise.reject(new Error("EmailJS non chargé"));
+  return emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+    message: buildOrderEmailMessage(cart, subtotal, discount, total),
+  });
+}
+
 function initClickCollect() {
   const items = document.querySelectorAll(".cc-item");
   if (!items.length) return;
