@@ -36,8 +36,12 @@ function formatEuroGlobal(n) {
   return n.toFixed(2).replace(".", ",") + " €";
 }
 
-function buildOrderEmailMessage(cart, subtotal, discount, total) {
+function buildOrderEmailMessage(cart, subtotal, discount, total, lastName, firstName, pickupTime) {
   const lines = ["Nouvelle commande Click & Collect - Le Pain de la Cité", ""];
+  lines.push(`Nom : ${lastName}`);
+  lines.push(`Prénom : ${firstName}`);
+  lines.push(`Heure de retrait souhaitée : ${pickupTime}`);
+  lines.push("");
   cart.forEach((i) => lines.push(`- ${i.qty}x ${i.name}${i.flavor ? ` (${i.flavor})` : ""}`));
   lines.push("");
   lines.push(`Sous-total : ${formatEuroGlobal(subtotal)}`);
@@ -46,10 +50,10 @@ function buildOrderEmailMessage(cart, subtotal, discount, total) {
   return lines.join("\n");
 }
 
-function sendOrderEmail(cart, subtotal, discount, total) {
+function sendOrderEmail(cart, subtotal, discount, total, lastName, firstName, pickupTime) {
   if (!window.emailjs) return Promise.reject(new Error("EmailJS non chargé"));
   return emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-    message: buildOrderEmailMessage(cart, subtotal, discount, total),
+    message: buildOrderEmailMessage(cart, subtotal, discount, total, lastName, firstName, pickupTime),
   });
 }
 
@@ -103,7 +107,14 @@ function initClickCollect() {
   const totalEl = document.getElementById("ccTotal");
   const payDemoBtn = document.getElementById("ccPayDemo");
   const payDemoNoticeEl = document.getElementById("ccPayDemoNotice");
+  const lastNameInput = document.getElementById("ccLastName");
+  const firstNameInput = document.getElementById("ccFirstName");
+  const timeInput = document.getElementById("ccTime");
   const DISCOUNT_RATE = 0.05;
+
+  function fieldsFilled() {
+    return Boolean(lastNameInput.value.trim() && firstNameInput.value.trim() && timeInput.value.trim());
+  }
 
   function getCart() {
     const cart = [];
@@ -157,14 +168,33 @@ function initClickCollect() {
     subtotalEl.textContent = formatEuro(subtotal);
     discountEl.textContent = "-" + formatEuro(discount);
     totalEl.textContent = formatEuro(total);
-    payDemoBtn.disabled = cart.length === 0;
+    payDemoBtn.disabled = cart.length === 0 || !fieldsFilled();
     payDemoNoticeEl.textContent = "";
   }
 
+  [lastNameInput, firstNameInput, timeInput].forEach((el) =>
+    el.addEventListener("input", () => {
+      payDemoBtn.disabled = currentCart.length === 0 || !fieldsFilled();
+    })
+  );
+
   payDemoBtn.addEventListener("click", () => {
+    if (!fieldsFilled()) {
+      payDemoNoticeEl.textContent = "⚠️ Merci de renseigner nom, prénom et heure de retrait.";
+      payDemoNoticeEl.style.color = "#E23B3B";
+      return;
+    }
     payDemoBtn.disabled = true;
     payDemoBtn.textContent = "Envoi en cours…";
-    sendOrderEmail(currentCart, currentSubtotal, currentDiscount, currentTotal)
+    sendOrderEmail(
+      currentCart,
+      currentSubtotal,
+      currentDiscount,
+      currentTotal,
+      lastNameInput.value.trim(),
+      firstNameInput.value.trim(),
+      timeInput.value.trim()
+    )
       .then(() => {
         payDemoNoticeEl.textContent = "✅ Commande envoyée ! Un email vient d'arriver sur lpdc63@gmail.com.";
         payDemoNoticeEl.style.color = "#7FA65C";
@@ -175,7 +205,7 @@ function initClickCollect() {
         payDemoNoticeEl.style.color = "#E23B3B";
       })
       .finally(() => {
-        payDemoBtn.disabled = false;
+        payDemoBtn.disabled = currentCart.length === 0 || !fieldsFilled();
         payDemoBtn.textContent = "💳 Payer";
       });
   });

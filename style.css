@@ -433,6 +433,20 @@ a { color: inherit; text-decoration: none; }
   padding-top: 14px;
 }
 
+.cc-fields { display: flex; flex-direction: column; gap: 6px; margin-top: 22px; }
+.cc-fields label { font-size: 0.82rem; color: #E8D9C8; margin-top: 8px; }
+.cc-fields label:first-child { margin-top: 0; }
+.cc-fields input {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  font-size: 0.95rem;
+}
+.cc-fields input::placeholder { color: #B49B87; }
+.cc-fields input:invalid:not(:placeholder-shown) { border-color: #E23B3B; }
+
 .cc-monext-btn {
   width: 100%;
   margin-top: 16px;
