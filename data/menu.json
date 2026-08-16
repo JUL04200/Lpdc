@@ -40,7 +40,7 @@
     {
       "name": "Muffin vanille chocolat",
       "price": 3.5,
-      "visible": false,
+      "visible": true,
       "dessertOption": true
     },
     {
