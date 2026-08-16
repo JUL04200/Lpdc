@@ -1,6 +1,9 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: JUL04200/Lpdc
   branch: claude/pain-cite-bakery-website-ovmc6d
+  base_url: https://lpdc-admin.netlify.app
+  auth_endpoint: auth
 
 media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
