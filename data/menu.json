@@ -94,6 +94,11 @@
       "name": "Canette",
       "price": 2.2,
       "visible": true
+    },
+    {
+      "name": "Bouteille 50cl",
+      "price": 2.8,
+      "visible": true
     }
   ]
 }
