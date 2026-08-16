@@ -26,9 +26,28 @@
       "visible": true
     },
     {
-      "name": "Muffin",
+      "name": "Flan",
+      "price": 3.2,
+      "visible": true,
+      "dessertOption": true
+    },
+    {
+      "name": "Muffin tout chocolat",
       "price": 3.5,
-      "visible": true
+      "visible": true,
+      "dessertOption": true
+    },
+    {
+      "name": "Muffin vanille chocolat",
+      "price": 3.5,
+      "visible": true,
+      "dessertOption": true
+    },
+    {
+      "name": "Muffin Milka",
+      "price": 3.5,
+      "visible": true,
+      "dessertOption": true
     },
     {
       "name": "Cheesecake",
@@ -61,28 +80,6 @@
     {
       "name": "Canette",
       "price": 2.2,
-      "visible": true
-    }
-  ],
-  "desserts": [
-    {
-      "value": "Flan",
-      "label": "flan",
-      "visible": true
-    },
-    {
-      "value": "Muffin tout chocolat",
-      "label": "muffin tout chocolat",
-      "visible": true
-    },
-    {
-      "value": "Muffin vanille chocolat",
-      "label": "muffin vanille chocolat",
-      "visible": true
-    },
-    {
-      "value": "Muffin Milka",
-      "label": "muffin Milka",
       "visible": true
     }
   ]

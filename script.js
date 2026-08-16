@@ -117,18 +117,18 @@ function applyMenuData(data) {
     });
   }
 
-  // Les articles à la carte marqués "dessertOption" (ex. cheesecake, apple
-  // cake, cookie) apparaissent aussi dans la liste des desserts des
-  // formules, en suivant le même prix/visibilité que l'article à la carte :
-  // un seul interrupteur "Visible" dans le CMS suffit pour les deux.
-  const dessertOptions = Array.isArray(data.desserts)
-    ? data.desserts.filter((d) => d.visible !== false)
+  // Les articles à la carte marqués "dessertOption" alimentent aussi la
+  // liste des desserts des formules, avec le même prix/visibilité que
+  // l'article à la carte : un seul interrupteur "Visible" dans le CMS
+  // suffit désormais pour gérer un dessert aux deux endroits.
+  const dessertOptions = Array.isArray(data.alacarte)
+    ? data.alacarte
+        .filter((entry) => entry.dessertOption && entry.visible !== false)
+        .map((entry) => ({
+          value: entry.name,
+          label: entry.name.toLowerCase().replace(/\bmilka\b/i, "Milka"),
+        }))
     : [];
-  if (Array.isArray(data.alacarte)) {
-    data.alacarte
-      .filter((entry) => entry.dessertOption && entry.visible !== false)
-      .forEach((entry) => dessertOptions.push({ value: entry.name, label: entry.name.toLowerCase() }));
-  }
 
   document.querySelectorAll('select.cc-flavor[data-dessert-group="sucre"]').forEach((select) => {
     const current = select.value;
