@@ -6,6 +6,16 @@
       "visible": true
     },
     {
+      "name": "Pain bagnat",
+      "price": 5.5,
+      "visible": true
+    },
+    {
+      "name": "Club sandwich",
+      "price": 5.5,
+      "visible": true
+    },
+    {
       "name": "Panini",
       "price": 5.5,
       "visible": true
@@ -81,12 +91,6 @@
       "name": "Canette",
       "price": 2.2,
       "visible": true
-    },
-    {
-      "visible": true,
-      "dessertOption": false,
-      "name": "Bagnat thon",
-      "price": 6.5
     }
   ]
 }
