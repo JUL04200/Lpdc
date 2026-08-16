@@ -1,25 +1,101 @@
 {
   "alacarte": [
-    { "name": "Sandwich", "price": 5.50, "visible": true },
-    { "name": "Panini", "price": 5.50, "visible": true },
-    { "name": "Wrap Poulet", "price": 6.50, "visible": true },
-    { "name": "Quiche", "price": 4.80, "visible": true },
-    { "name": "Pâtes", "price": 7.80, "visible": true },
-    { "name": "Muffin", "price": 3.50, "visible": true },
-    { "name": "Cheesecake", "price": 3.50, "visible": true },
-    { "name": "Apple Cake", "price": 3.50, "visible": true },
-    { "name": "Cookie", "price": 2.20, "visible": true },
-    { "name": "Croissant", "price": 1.10, "visible": true },
-    { "name": "Pain au chocolat", "price": 1.20, "visible": true },
-    { "name": "Canette", "price": 2.20, "visible": true }
+    {
+      "name": "Sandwich",
+      "price": 5.5,
+      "visible": true
+    },
+    {
+      "name": "Panini",
+      "price": 5.5,
+      "visible": true
+    },
+    {
+      "name": "Wrap Poulet",
+      "price": 6.5,
+      "visible": true
+    },
+    {
+      "name": "Quiche",
+      "price": 4.8,
+      "visible": true
+    },
+    {
+      "name": "Pâtes",
+      "price": 7.8,
+      "visible": true
+    },
+    {
+      "name": "Muffin",
+      "price": 3.5,
+      "visible": true
+    },
+    {
+      "name": "Cheesecake",
+      "price": 3.5,
+      "visible": true
+    },
+    {
+      "name": "Apple Cake",
+      "price": 3.5,
+      "visible": true
+    },
+    {
+      "name": "Cookie",
+      "price": 2.2,
+      "visible": true
+    },
+    {
+      "name": "Croissant",
+      "price": 1.1,
+      "visible": true
+    },
+    {
+      "name": "Pain au chocolat",
+      "price": 1.2,
+      "visible": true
+    },
+    {
+      "name": "Canette",
+      "price": 2.2,
+      "visible": true
+    }
   ],
   "desserts": [
-    { "value": "Flan", "label": "flan", "visible": true },
-    { "value": "Muffin tout chocolat", "label": "muffin tout chocolat", "visible": true },
-    { "value": "Muffin vanille chocolat", "label": "muffin vanille chocolat", "visible": true },
-    { "value": "Muffin Milka", "label": "muffin Milka", "visible": true },
-    { "value": "Cheesecake", "label": "cheesecake", "visible": true },
-    { "value": "Apple Cake", "label": "apple cake", "visible": true },
-    { "value": "Cookie", "label": "cookie", "visible": true }
+    {
+      "value": "Flan",
+      "label": "flan",
+      "visible": true
+    },
+    {
+      "value": "Muffin tout chocolat",
+      "label": "muffin tout chocolat",
+      "visible": true
+    },
+    {
+      "value": "Muffin vanille chocolat",
+      "label": "muffin vanille chocolat",
+      "visible": true
+    },
+    {
+      "value": "Muffin Milka",
+      "label": "muffin Milka",
+      "visible": true
+    },
+    {
+      "value": "Cheesecake",
+      "label": "cheesecake",
+      "visible": true
+    },
+    {
+      "value": "Apple Cake",
+      "label": "apple cake",
+      "visible": false
+    },
+    {
+      "value": "Cookie",
+      "label": "cookie",
+      "visible": true
+    }
   ]
 }
