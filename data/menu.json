@@ -19,7 +19,7 @@
     {
       "name": "Panini",
       "price": 5.5,
-      "visible": true
+      "visible": false
     },
     {
       "name": "Wrap Poulet",
@@ -35,7 +35,7 @@
     {
       "name": "Pâtes",
       "price": 7.8,
-      "visible": true,
+      "visible": false,
       "linkedMenu": "Menu Pâtes"
     },
     {
