@@ -216,6 +216,7 @@ function initClickCollect() {
   const orderModal = document.getElementById("ccOrderModal");
   const orderNumberEl = document.getElementById("ccOrderNumber");
   const orderModalCloseBtn = document.getElementById("ccOrderModalClose");
+  const paypalNoticeEl = document.getElementById("ccPaypalNotice");
   const DISCOUNT_RATE = 0.05;
 
   orderModalCloseBtn.addEventListener("click", () => {
@@ -301,6 +302,48 @@ function initClickCollect() {
 
     item.querySelectorAll(".cc-flavor").forEach((el) => el.addEventListener("change", renderCart));
   });
+
+  // Démo PayPal Sandbox temporaire : aucune vraie transaction, un compte
+  // sandbox générique ("sb") sert juste à afficher le vrai rendu des
+  // boutons PayPal. À retirer une fois la démo terminée.
+  if (window.paypal && paypalNoticeEl) {
+    paypal
+      .Buttons({
+        style: { layout: "vertical", color: "gold", shape: "rect", label: "paypal" },
+        createOrder: (data, actions) => {
+          if (currentCart.length === 0 || !nameInput.value.trim() || !timeInput.value.trim()) {
+            paypalNoticeEl.textContent = "⚠️ Merci de renseigner le nom, l'heure de retrait et d'ajouter au moins un article.";
+            paypalNoticeEl.style.color = "#E23B3B";
+            return Promise.reject(new Error("Formulaire incomplet"));
+          }
+          paypalNoticeEl.textContent = "";
+          return actions.order.create({
+            purchase_units: [{ amount: { currency_code: "EUR", value: currentTotal.toFixed(2) } }],
+          });
+        },
+        onApprove: (data, actions) =>
+          actions.order.capture().then(() => {
+            const orderNumber = generateOrderNumber();
+            return sendOrderEmail(
+              currentCart,
+              currentSubtotal,
+              currentDiscount,
+              currentTotal,
+              nameInput.value.trim(),
+              timeInput.value.trim(),
+              orderNumber
+            ).then(() => {
+              orderNumberEl.textContent = orderNumber;
+              orderModal.hidden = false;
+            });
+          }),
+        onError: (err) => {
+          paypalNoticeEl.textContent = "❌ Erreur PayPal Sandbox : " + ((err && err.message) || String(err));
+          paypalNoticeEl.style.color = "#E23B3B";
+        },
+      })
+      .render("#ccPaypalButtons");
+  }
 
   renderCart();
 }

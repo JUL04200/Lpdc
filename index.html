@@ -738,6 +738,12 @@
           </button>
 
           <p class="cc-note">Le paiement en ligne n'est pas disponible pour le moment.</p>
+
+          <div class="cc-paypal-sandbox">
+            <p class="cc-note">🧪 Test PayPal Sandbox (démo uniquement, aucun vrai paiement)</p>
+            <div id="ccPaypalButtons"></div>
+            <p id="ccPaypalNotice" class="cc-note"></p>
+          </div>
         </div>
       </div>
     </div>
@@ -812,6 +818,7 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=sb&currency=EUR&locale=fr_FR"></script>
 <script src="script.js"></script>
 </body>
 </html>
