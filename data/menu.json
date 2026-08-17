@@ -121,6 +121,11 @@
       "visible": true
     },
     {
+      "name": "Evian 1L",
+      "price": 2.6,
+      "visible": true
+    },
+    {
       "name": "San Pellegrino",
       "price": 1.8,
       "visible": true
