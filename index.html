@@ -730,21 +730,14 @@
             <input type="text" id="ccTime" placeholder="ex. 12h30" required>
           </div>
 
-          <button type="button" id="ccMonextPayBtn" class="btn btn-primary btn-large">
-            💳 Payer par carte bancaire <span>(test Monext Sandbox)</span>
-          </button>
+          <button type="button" id="ccMonextPayBtn" class="btn btn-primary btn-large">💳 Payer par carte bancaire</button>
+          <p class="cc-note">Mode test (sandbox) — aucun vrai paiement pour le moment.</p>
           <p id="ccMonextNotice" class="cc-note"></p>
           <button type="button" class="btn btn-secondary cc-monext-btn" disabled title="Service non disponible">
             🎫 Payer par titre-restaurant <span>(service non disponible)</span>
           </button>
 
           <p class="cc-note">Le paiement par titre-restaurant n'est pas encore disponible.</p>
-
-          <div class="cc-paypal-sandbox">
-            <p class="cc-note">🧪 Test PayPal Sandbox (démo uniquement, aucun vrai paiement)</p>
-            <div id="ccPaypalButtons"></div>
-            <p id="ccPaypalNotice" class="cc-note"></p>
-          </div>
         </div>
       </div>
     </div>
@@ -819,7 +812,6 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<script src="https://www.paypal.com/sdk/js?client-id=sb&currency=EUR&locale=fr_FR"></script>
 <script src="script.js"></script>
 </body>
 </html>
