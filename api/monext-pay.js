@@ -35,7 +35,7 @@ module.exports = async (req, res) => {
   const origin = `${proto}://${host}`;
 
   try {
-    const { redirectURL } = await createSession({
+    const { redirectURL, sessionId } = await createSession({
       amountCents,
       orderNumber,
       name,
@@ -49,7 +49,7 @@ module.exports = async (req, res) => {
     });
 
     res.setHeader("Content-Type", "application/json");
-    res.end(JSON.stringify({ redirectURL }));
+    res.end(JSON.stringify({ redirectURL, sessionId }));
   } catch (err) {
     res.statusCode = 502;
     res.setHeader("Content-Type", "application/json");

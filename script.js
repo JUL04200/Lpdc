@@ -334,22 +334,27 @@ function initClickCollect() {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (!data.redirectURL) throw new Error(data.error || "Réponse invalide du serveur");
+        if (!data.redirectURL || !data.sessionId) throw new Error(data.error || "Réponse invalide du serveur");
+        // Le retour de Monext n'ajoute pas forcément le sessionId dans
+        // l'URL : on le garde nous-mêmes pour le retrouver au retour.
+        localStorage.setItem("lpdcMonextSessionId", data.sessionId);
         window.location.href = data.redirectURL;
       })
       .catch((err) => {
         monextNoticeEl.textContent = "❌ Erreur : " + err.message;
         monextNoticeEl.style.color = "#E23B3B";
         monextPayBtn.disabled = false;
-        monextPayBtn.textContent = "💳 Payer par carte bancaire (test Monext Sandbox)";
+        monextPayBtn.textContent = "💳 Payer par carte bancaire";
       });
   });
 
   // Retour depuis Monext : on ne fait JAMAIS confiance au simple fait
   // d'être revenu sur cette URL pour afficher une confirmation. On
   // revérifie toujours le vrai statut auprès de Monext, côté serveur.
-  const monextSessionId = new URLSearchParams(window.location.search).get("sessionId");
+  const monextSessionId =
+    new URLSearchParams(window.location.search).get("sessionId") || localStorage.getItem("lpdcMonextSessionId");
   if (monextSessionId) {
+    localStorage.removeItem("lpdcMonextSessionId");
     fetch(`/api/monext-status?sessionId=${encodeURIComponent(monextSessionId)}`)
       .then((res) => res.json())
       .then((data) => {
