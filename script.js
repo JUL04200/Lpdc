@@ -217,6 +217,8 @@ function initClickCollect() {
   const orderNumberEl = document.getElementById("ccOrderNumber");
   const orderModalCloseBtn = document.getElementById("ccOrderModalClose");
   const paypalNoticeEl = document.getElementById("ccPaypalNotice");
+  const monextPayBtn = document.getElementById("ccMonextPayBtn");
+  const monextNoticeEl = document.getElementById("ccMonextNotice");
   const DISCOUNT_RATE = 0.05;
 
   orderModalCloseBtn.addEventListener("click", () => {
@@ -343,6 +345,93 @@ function initClickCollect() {
         },
       })
       .render("#ccPaypalButtons");
+  }
+
+  // Paiement Monext (sandbox pour l'instant) : on redirige vers la page de
+  // paiement hébergée par Monext, on ne calcule/valide rien nous-mêmes.
+  monextPayBtn.addEventListener("click", () => {
+    if (currentCart.length === 0 || !nameInput.value.trim() || !timeInput.value.trim()) {
+      monextNoticeEl.textContent = "⚠️ Merci de renseigner le nom, l'heure de retrait et d'ajouter au moins un article.";
+      monextNoticeEl.style.color = "#E23B3B";
+      return;
+    }
+    monextNoticeEl.textContent = "";
+    monextPayBtn.disabled = true;
+    monextPayBtn.textContent = "Redirection en cours…";
+
+    const orderNumber = generateOrderNumber();
+    const cartSummary = currentCart.map((i) => `${i.qty}x ${i.name}${i.flavor ? ` (${i.flavor})` : ""}`);
+
+    fetch("/api/monext-pay", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        total: currentTotal,
+        subtotal: currentSubtotal,
+        discount: currentDiscount,
+        name: nameInput.value.trim(),
+        pickupTime: timeInput.value.trim(),
+        orderNumber,
+        cartSummary,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (!data.redirectURL) throw new Error(data.error || "Réponse invalide du serveur");
+        window.location.href = data.redirectURL;
+      })
+      .catch((err) => {
+        monextNoticeEl.textContent = "❌ Erreur : " + err.message;
+        monextNoticeEl.style.color = "#E23B3B";
+        monextPayBtn.disabled = false;
+        monextPayBtn.textContent = "💳 Payer par carte bancaire (test Monext Sandbox)";
+      });
+  });
+
+  // Retour depuis Monext : on ne fait JAMAIS confiance au simple fait
+  // d'être revenu sur cette URL pour afficher une confirmation. On
+  // revérifie toujours le vrai statut auprès de Monext, côté serveur.
+  const monextToken = new URLSearchParams(window.location.search).get("token");
+  if (monextToken) {
+    fetch(`/api/monext-status?token=${encodeURIComponent(monextToken)}`)
+      .then((res) => res.json())
+      .then((data) => {
+        window.history.replaceState({}, document.title, window.location.pathname + window.location.hash);
+        if (!data.paid) {
+          monextNoticeEl.textContent = "❌ Le paiement n'a pas abouti (" + (data.message || "statut inconnu") + ").";
+          monextNoticeEl.style.color = "#E23B3B";
+          return;
+        }
+        const pd = data.privateData || {};
+        orderNumberEl.textContent = pd.orderNumber || "";
+        orderModal.hidden = false;
+
+        const itemLines = Object.keys(pd)
+          .filter((k) => k.startsWith("item"))
+          .sort()
+          .map((k) => `- ${pd[k]}`);
+        const message = [
+          "Nouvelle commande Click & Collect - Le Pain de la Cité (payée par CB)",
+          "",
+          `Numéro de commande : ${pd.orderNumber || ""}`,
+          `Nom : ${pd.name || ""}`,
+          `Heure de retrait souhaitée : ${pd.pickupTime || ""}`,
+          "",
+          ...itemLines,
+          "",
+          `Sous-total : ${pd.subtotal || ""} €`,
+          `Réduction Click & Collect (-5%) : -${pd.discount || ""} €`,
+          `Total payé : ${pd.total || ""} €`,
+        ].join("\n");
+
+        if (window.emailjs) {
+          emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, { message });
+        }
+      })
+      .catch(() => {
+        monextNoticeEl.textContent = "❌ Impossible de vérifier le statut du paiement.";
+        monextNoticeEl.style.color = "#E23B3B";
+      });
   }
 
   renderCart();

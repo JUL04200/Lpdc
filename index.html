@@ -730,14 +730,15 @@
             <input type="text" id="ccTime" placeholder="ex. 12h30" required>
           </div>
 
-          <button type="button" class="btn btn-secondary cc-monext-btn" disabled title="Service non disponible">
-            💳 Payer par carte bancaire <span>(service non disponible)</span>
+          <button type="button" id="ccMonextPayBtn" class="btn btn-primary btn-large">
+            💳 Payer par carte bancaire <span>(test Monext Sandbox)</span>
           </button>
+          <p id="ccMonextNotice" class="cc-note"></p>
           <button type="button" class="btn btn-secondary cc-monext-btn" disabled title="Service non disponible">
             🎫 Payer par titre-restaurant <span>(service non disponible)</span>
           </button>
 
-          <p class="cc-note">Le paiement en ligne n'est pas disponible pour le moment.</p>
+          <p class="cc-note">Le paiement par titre-restaurant n'est pas encore disponible.</p>
 
           <div class="cc-paypal-sandbox">
             <p class="cc-note">🧪 Test PayPal Sandbox (démo uniquement, aucun vrai paiement)</p>
