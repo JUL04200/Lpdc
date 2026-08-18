@@ -348,9 +348,9 @@ function initClickCollect() {
   // Retour depuis Monext : on ne fait JAMAIS confiance au simple fait
   // d'être revenu sur cette URL pour afficher une confirmation. On
   // revérifie toujours le vrai statut auprès de Monext, côté serveur.
-  const monextToken = new URLSearchParams(window.location.search).get("token");
-  if (monextToken) {
-    fetch(`/api/monext-status?token=${encodeURIComponent(monextToken)}`)
+  const monextSessionId = new URLSearchParams(window.location.search).get("sessionId");
+  if (monextSessionId) {
+    fetch(`/api/monext-status?sessionId=${encodeURIComponent(monextSessionId)}`)
       .then((res) => res.json())
       .then((data) => {
         window.history.replaceState({}, document.title, window.location.pathname + window.location.hash);

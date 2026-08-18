@@ -1,4 +1,4 @@
-const { doWebPayment } = require("../lib/monext");
+const { createSession } = require("../lib/monext");
 
 module.exports = async (req, res) => {
   if (req.method !== "POST") {
@@ -15,7 +15,8 @@ module.exports = async (req, res) => {
     payload = JSON.parse(body);
   } catch {
     res.statusCode = 400;
-    res.json ? res.json({ error: "JSON invalide" }) : res.end(JSON.stringify({ error: "JSON invalide" }));
+    res.setHeader("Content-Type", "application/json");
+    res.end(JSON.stringify({ error: "JSON invalide" }));
     return;
   }
 
@@ -34,7 +35,7 @@ module.exports = async (req, res) => {
   const origin = `${proto}://${host}`;
 
   try {
-    const { redirectURL } = await doWebPayment({
+    const { redirectURL } = await createSession({
       amountCents,
       orderNumber,
       name,
@@ -44,7 +45,6 @@ module.exports = async (req, res) => {
       discount: Number(discount) || 0,
       total: Number(total) || 0,
       returnURL: `${origin}/?monext=retour`,
-      cancelURL: `${origin}/?monext=annule`,
       notificationURL: `${origin}/api/monext-notify`,
     });
 
