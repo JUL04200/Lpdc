@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pour toi, Maman ❤️</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+  :root{
+    --cream:#fdf6ef;
+    --blush:#f7dfe4;
+    --rose:#e8a0ae;
+    --rose-deep:#c9758a;
+    --gold:#c9a15a;
+    --ink:#4a3b3f;
+    --ink-soft:#7a6367;
+  }
+
+  *{ box-sizing:border-box; }
+
+  body{
+    margin:0;
+    font-family:'Georgia', 'Iowan Old Style', 'Palatino Linotype', serif;
+    background:
+      radial-gradient(circle at 15% 10%, var(--blush) 0%, transparent 45%),
+      radial-gradient(circle at 85% 90%, var(--blush) 0%, transparent 45%),
+      var(--cream);
+    color:var(--ink);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    padding:48px 20px 80px;
+  }
+
+  .petal{
+    position:fixed;
+    top:-10%;
+    font-size:22px;
+    opacity:.55;
+    animation:fall linear infinite;
+    pointer-events:none;
+    user-select:none;
+    z-index:0;
+  }
+  @keyframes fall{
+    to{ transform: translateY(115vh) rotate(360deg); }
+  }
+
+  main{
+    position:relative;
+    z-index:1;
+    max-width:640px;
+    width:100%;
+  }
+
+  .eyebrow{
+    text-align:center;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    font-size:.72rem;
+    color:var(--rose-deep);
+    font-family:'Helvetica Neue', Arial, sans-serif;
+    margin:0 0 10px;
+  }
+
+  h1{
+    text-align:center;
+    font-size:clamp(2.1rem, 6vw, 3rem);
+    font-weight:400;
+    font-style:italic;
+    color:var(--rose-deep);
+    margin:0 0 8px;
+  }
+
+  .subtitle{
+    text-align:center;
+    color:var(--ink-soft);
+    font-size:1.05rem;
+    margin:0 0 40px;
+  }
+
+  .card{
+    background:#fffdfb;
+    border-radius:22px;
+    box-shadow:0 18px 45px -20px rgba(90,50,60,.35), 0 2px 8px rgba(90,50,60,.08);
+    padding:28px;
+    margin-bottom:36px;
+    border:1px solid rgba(201,117,138,.15);
+  }
+
+  .photo-frame{
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 10px 30px -12px rgba(90,50,60,.4);
+    margin:0 0 18px;
+    position:relative;
+  }
+  .photo-frame img{
+    display:block;
+    width:100%;
+    height:auto;
+  }
+  .photo-caption{
+    text-align:center;
+    font-style:italic;
+    color:var(--ink-soft);
+    font-size:.95rem;
+    margin:0;
+  }
+
+  .poem{
+    text-align:center;
+    line-height:1.9;
+    font-size:1.18rem;
+    color:var(--ink);
+  }
+  .poem p{ margin:0 0 26px; }
+  .poem p:last-of-type{ margin-bottom:0; }
+  .poem-signature{
+    margin-top:22px;
+    font-style:italic;
+    color:var(--rose-deep);
+    font-size:1rem;
+  }
+
+  .section-title{
+    text-align:center;
+    font-style:italic;
+    color:var(--rose-deep);
+    font-size:1.3rem;
+    margin:0 0 6px;
+  }
+  .section-sub{
+    text-align:center;
+    color:var(--ink-soft);
+    font-size:.95rem;
+    margin:0 0 20px;
+  }
+
+  audio{
+    width:100%;
+    border-radius:999px;
+    outline:none;
+  }
+
+  .heart-divider{
+    text-align:center;
+    color:var(--rose);
+    font-size:1.3rem;
+    letter-spacing:16px;
+    margin:0 0 36px;
+  }
+
+  footer{
+    text-align:center;
+    color:var(--ink-soft);
+    font-size:.9rem;
+    margin-top:10px;
+  }
+  footer .from{
+    display:block;
+    margin-top:4px;
+    font-style:italic;
+    color:var(--rose-deep);
+    font-size:1.05rem;
+  }
+
+  @media (max-width:480px){
+    .card{ padding:20px; }
+  }
+</style>
+</head>
+<body>
+
+<main>
+  <p class="eyebrow">Pour la plus belle des mamans</p>
+  <h1>Pour toi, Maman</h1>
+  <p class="subtitle">Un petit coin rien que pour toi, avec tout notre amour.</p>
+
+  <div class="card">
+    <div class="photo-frame">
+      <img src="assets/photo.jpg" alt="Un moment complice, tout en tendresse">
+    </div>
+    <p class="photo-caption">Un moment volé, plein de tendresse — comme tous ceux que tu nous offres.</p>
+  </div>
+
+  <div class="heart-divider">♥ ♥ ♥</div>
+
+  <div class="card">
+    <p class="section-title">Un poème pour toi</p>
+    <p class="section-sub">Maurice Carême</p>
+    <div class="poem">
+      <p>
+        Dans la vie,<br>
+        Tout peut s'user :<br>
+        Mes bas, mes souliers,<br>
+        Mon crayon et ma gomme à effacer.
+      </p>
+      <p>
+        Mais moi, je connais une chose<br>
+        Qui ne peut jamais s'user :<br>
+        C'est la joue d'une maman<br>
+        Qui reçoit des baisers de son enfant.
+      </p>
+      <p class="poem-signature">— Maurice Carême</p>
+    </div>
+  </div>
+
+  <div class="heart-divider">♥ ♥ ♥</div>
+
+  <div class="card">
+    <p class="section-title">Écoute-le, chanté pour toi</p>
+    <p class="section-sub">Le même poème, chanté avec tout son cœur</p>
+    <audio controls preload="metadata" src="assets/poeme-chante.m4a"></audio>
+  </div>
+
+  <footer>
+    Merci d'être la maman que tu es.
+    <span class="from">On t'aime, Maman 💐</span>
+  </footer>
+</main>
+
+<script>
+  const emojis = ['🌸','💐','🌷','❤️'];
+  const count = 14;
+  for (let i = 0; i < count; i++){
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    p.style.left = Math.random()*100 + 'vw';
+    const duration = 10 + Math.random()*10;
+    p.style.animationDuration = duration + 's';
+    p.style.animationDelay = (-Math.random()*duration) + 's';
+    p.style.fontSize = (16 + Math.random()*14) + 'px';
+    document.body.appendChild(p);
+  }
+</script>
+
+</body>
+</html>
