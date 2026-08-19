@@ -346,7 +346,8 @@ function initClickCollect() {
           // aller directement, pour diagnostiquer le choix de l'onglet par
           // défaut (CB vs titre-restaurant) côté Monext.
           noticeEl.textContent = "DEBUG redirectURL: " + data.redirectURL;
-          noticeEl.style.color = "#3E2723";
+          noticeEl.style.color = "#fff";
+          noticeEl.style.wordBreak = "break-all";
           btn.disabled = false;
           btn.textContent = defaultLabel;
           return;
