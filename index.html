@@ -213,7 +213,7 @@
     <div class="container">
       <p class="eyebrow center">Click &amp; Collect</p>
       <h2 class="center">Composez votre commande</h2>
-      <p class="section-sub center">Choisissez vos articles et composez votre panier — le paiement en ligne (carte bancaire et titre-restaurant) arrive très bientôt.</p>
+      <p class="section-sub center">Choisissez vos articles et composez votre panier — paiement en ligne par carte bancaire ou titre-restaurant (mode test).</p>
       <p class="cc-cutoff center">⏰ Commandes Click &amp; Collect acceptées uniquement avant <strong>11h</strong>. Passé cet horaire, merci de venir directement en boutique.</p>
 
       <div id="ccClosedNotice" class="cc-closed" hidden>
@@ -733,11 +733,9 @@
           <button type="button" id="ccMonextPayBtn" class="btn btn-primary btn-large">💳 Payer par carte bancaire</button>
           <p class="cc-note">Mode test (sandbox) — aucun vrai paiement pour le moment.</p>
           <p id="ccMonextNotice" class="cc-note"></p>
-          <button type="button" class="btn btn-secondary cc-monext-btn" disabled title="Service non disponible">
-            🎫 Payer par titre-restaurant <span>(service non disponible)</span>
-          </button>
-
-          <p class="cc-note">Le paiement par titre-restaurant n'est pas encore disponible.</p>
+          <button type="button" id="ccMonextTRBtn" class="btn btn-secondary cc-monext-btn">🎫 Payer par titre-restaurant</button>
+          <p class="cc-note">Mode test (sandbox) — aucun vrai paiement pour le moment.</p>
+          <p id="ccMonextTRNotice" class="cc-note"></p>
         </div>
       </div>
     </div>

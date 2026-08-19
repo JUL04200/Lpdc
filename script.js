@@ -218,6 +218,8 @@ function initClickCollect() {
   const orderModalCloseBtn = document.getElementById("ccOrderModalClose");
   const monextPayBtn = document.getElementById("ccMonextPayBtn");
   const monextNoticeEl = document.getElementById("ccMonextNotice");
+  const monextTRBtn = document.getElementById("ccMonextTRBtn");
+  const monextTRNoticeEl = document.getElementById("ccMonextTRNotice");
   const DISCOUNT_RATE = 0.05;
 
   orderModalCloseBtn.addEventListener("click", () => {
@@ -306,15 +308,15 @@ function initClickCollect() {
 
   // Paiement Monext (sandbox pour l'instant) : on redirige vers la page de
   // paiement hébergée par Monext, on ne calcule/valide rien nous-mêmes.
-  monextPayBtn.addEventListener("click", () => {
+  function startMonextPayment({ paymentMethod, btn, noticeEl, defaultLabel }) {
     if (currentCart.length === 0 || !nameInput.value.trim() || !timeInput.value.trim()) {
-      monextNoticeEl.textContent = "⚠️ Merci de renseigner le nom, l'heure de retrait et d'ajouter au moins un article.";
-      monextNoticeEl.style.color = "#E23B3B";
+      noticeEl.textContent = "⚠️ Merci de renseigner le nom, l'heure de retrait et d'ajouter au moins un article.";
+      noticeEl.style.color = "#E23B3B";
       return;
     }
-    monextNoticeEl.textContent = "";
-    monextPayBtn.disabled = true;
-    monextPayBtn.textContent = "Redirection en cours…";
+    noticeEl.textContent = "";
+    btn.disabled = true;
+    btn.textContent = "Redirection en cours…";
 
     const orderNumber = generateOrderNumber();
     const cartSummary = currentCart.map((i) => `${i.qty}x ${i.name}${i.flavor ? ` (${i.flavor})` : ""}`);
@@ -330,6 +332,7 @@ function initClickCollect() {
         pickupTime: timeInput.value.trim(),
         orderNumber,
         cartSummary,
+        paymentMethod,
       }),
     })
       .then((res) => res.json())
@@ -341,12 +344,30 @@ function initClickCollect() {
         window.location.href = data.redirectURL;
       })
       .catch((err) => {
-        monextNoticeEl.textContent = "❌ Erreur : " + err.message;
-        monextNoticeEl.style.color = "#E23B3B";
-        monextPayBtn.disabled = false;
-        monextPayBtn.textContent = "💳 Payer par carte bancaire";
+        noticeEl.textContent = "❌ Erreur : " + err.message;
+        noticeEl.style.color = "#E23B3B";
+        btn.disabled = false;
+        btn.textContent = defaultLabel;
       });
-  });
+  }
+
+  monextPayBtn.addEventListener("click", () =>
+    startMonextPayment({
+      paymentMethod: "CB",
+      btn: monextPayBtn,
+      noticeEl: monextNoticeEl,
+      defaultLabel: "💳 Payer par carte bancaire",
+    })
+  );
+
+  monextTRBtn.addEventListener("click", () =>
+    startMonextPayment({
+      paymentMethod: "TRD",
+      btn: monextTRBtn,
+      noticeEl: monextTRNoticeEl,
+      defaultLabel: "🎫 Payer par titre-restaurant",
+    })
+  );
 
   // Retour depuis Monext : on ne fait JAMAIS confiance au simple fait
   // d'être revenu sur cette URL pour afficher une confirmation. On

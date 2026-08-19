@@ -20,7 +20,7 @@ module.exports = async (req, res) => {
     return;
   }
 
-  const { total, subtotal, discount, name, pickupTime, orderNumber, cartSummary } = payload;
+  const { total, subtotal, discount, name, pickupTime, orderNumber, cartSummary, paymentMethod } = payload;
   const amountCents = Math.round(Number(total) * 100);
 
   if (!amountCents || amountCents <= 0 || !name || !pickupTime || !orderNumber) {
@@ -29,6 +29,10 @@ module.exports = async (req, res) => {
     res.end(JSON.stringify({ error: "Paramètres de commande incomplets" }));
     return;
   }
+
+  // "CB" (défaut) ou "TRD" (titre-restaurant) : identifiants de contrat
+  // confirmés dans l'espace d'homologation Monext.
+  const contractNumber = paymentMethod === "TRD" ? "TRD" : "CB_MONEXT_3DS";
 
   const host = req.headers["x-forwarded-host"] || req.headers.host;
   const proto = req.headers["x-forwarded-proto"] || "https";
@@ -46,6 +50,7 @@ module.exports = async (req, res) => {
       total: Number(total) || 0,
       returnURL: `${origin}/?monext=retour`,
       notificationURL: `${origin}/api/monext-notify`,
+      contractNumber,
     });
 
     res.setHeader("Content-Type", "application/json");
