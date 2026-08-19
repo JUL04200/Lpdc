@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mentions légales — Le Pain de la Cité</title>
+<meta name="description" content="Mentions légales du site Le Pain de la Cité : éditeur, hébergeur et informations légales.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 64 64" aria-hidden="true">
+        <path d="M32 10c-9 0-16 6-16 14 0 3 1 5 2 7-3 2-5 5-5 9 0 7 8 12 19 12s19-5 19-12c0-4-2-7-5-9 1-2 2-4 2-7 0-8-7-14-16-14z" fill="currentColor"/>
+        <path d="M20 26c2-3 6-5 12-5s10 2 12 5" stroke="#fff" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      </svg>
+      <span>Le Pain de la Cité</span>
+    </a>
+    <nav class="nav">
+      <a href="index.html#histoire">Notre histoire</a>
+      <a href="index.html#carte">Notre carte</a>
+      <a href="index.html#formules">Formules du midi</a>
+      <a href="index.html#click-collect">Click &amp; Collect</a>
+      <a href="index.html#infos">Infos pratiques</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <a href="tel:0699738605" class="btn btn-call header-call">📞 06 99 73 86 05</a>
+    <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <section class="section legal">
+    <div class="container legal-inner">
+      <p class="eyebrow">Informations légales</p>
+      <h1>Mentions légales</h1>
+
+      <h2>Éditeur du site</h2>
+      <p>
+        Le site lepaindelacite.com est édité par la société <strong>Le Pain de la Cité</strong>, SARL au capital social de 3 000 €,
+        immatriculée au Registre du Commerce et des Sociétés de Lyon sous le numéro 499 186 880, SIRET 499 186 880 00013.<br>
+        Siège social : 63 Quai Charles de Gaulle, Cité Internationale, 69006 Lyon, France.<br>
+        Gérant et directeur de la publication : Jean Arrouasse.<br>
+        Téléphone : <a href="tel:0699738605">06 99 73 86 05</a>.
+      </p>
+
+      <h2>Hébergement</h2>
+      <p>
+        Le site est hébergé par <strong>Vercel Inc.</strong>, 340 S Lemon Ave #4133, Walnut, CA 91789, États-Unis.<br>
+        Site web : <a href="https://vercel.com" target="_blank" rel="noopener">vercel.com</a>.
+      </p>
+
+      <h2>Propriété intellectuelle</h2>
+      <p>
+        L'ensemble des contenus présents sur ce site (textes, images, logo, mise en page) est la propriété de Le Pain de la Cité,
+        sauf mention contraire, et ne peut être reproduit sans autorisation préalable.
+      </p>
+
+      <h2>Données personnelles</h2>
+      <p>
+        Les informations collectées via le formulaire de commande Click &amp; Collect (nom, créneau de retrait, contenu de la commande)
+        sont utilisées uniquement pour le traitement de la commande et ne sont ni revendues ni transmises à des tiers à des fins commerciales.
+        Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez d'un droit d'accès, de rectification et de
+        suppression de vos données, que vous pouvez exercer en nous contactant au <a href="tel:0699738605">06 99 73 86 05</a>.
+      </p>
+
+      <h2>Paiement en ligne</h2>
+      <p>
+        Les paiements par carte bancaire réalisés sur ce site pour le Click &amp; Collect sont traités par Monext Online (Payline),
+        prestataire de services de paiement, via une page de paiement sécurisée. Le site lepaindelacite.com ne stocke aucune donnée
+        bancaire.
+      </p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div>
+      <strong>Le Pain de la Cité</strong>
+      <p>63 Quai Charles de Gaulle, Cité Internationale, 69006 Lyon</p>
+    </div>
+    <p class="footer-copy">&copy; <span id="year"></span> Le Pain de la Cité — Tous droits réservés</p>
+  </div>
+</footer>
+
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>

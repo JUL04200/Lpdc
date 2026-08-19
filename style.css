@@ -583,3 +583,10 @@ a { color: inherit; text-decoration: none; }
   .section { padding: 56px 0; }
   .prices-card { padding: 28px 24px; }
 }
+
+/* Mentions légales */
+.legal-inner { max-width: 760px; }
+.legal-inner h1 { font-size: 2rem; margin-bottom: 24px; }
+.legal-inner h2 { font-size: 1.2rem; margin: 32px 0 10px; }
+.legal-inner p { color: var(--brown); margin-bottom: 8px; }
+.legal-inner a { color: var(--terracotta-dark); text-decoration: underline; }
