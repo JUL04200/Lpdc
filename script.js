@@ -341,6 +341,16 @@ function initClickCollect() {
         // Le retour de Monext n'ajoute pas forcément le sessionId dans
         // l'URL : on le garde nous-mêmes pour le retrouver au retour.
         localStorage.setItem("lpdcMonextSessionId", data.sessionId);
+        if (new URLSearchParams(window.location.search).get("debug") === "1") {
+          // Mode debug temporaire : affiche l'URL de redirection au lieu d'y
+          // aller directement, pour diagnostiquer le choix de l'onglet par
+          // défaut (CB vs titre-restaurant) côté Monext.
+          noticeEl.textContent = "DEBUG redirectURL: " + data.redirectURL;
+          noticeEl.style.color = "#3E2723";
+          btn.disabled = false;
+          btn.textContent = defaultLabel;
+          return;
+        }
         window.location.href = data.redirectURL;
       })
       .catch((err) => {
