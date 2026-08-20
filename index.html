@@ -6,6 +6,9 @@
 <title>Le Pain de la Cité — Boulangerie-Pâtisserie à la Cité Internationale, Lyon</title>
 <meta name="description" content="Le Pain de la Cité, boulangerie-pâtisserie installée depuis près de 20 ans au cœur de la Cité Internationale à Lyon. Sandwichs, paninis, pâtes, quiches, pâtisseries et viennoiseries. Formules du midi adaptées à votre budget.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -40,11 +43,16 @@
     <div class="container hero-inner">
       <div class="hero-text">
         <p class="eyebrow">Boulangerie · Pâtisserie · Snacking</p>
-        <h1>Le pain, les saveurs et le sourire d'une équipe qui connaît son quartier.</h1>
+        <h1>Le pain, les saveurs et le <em>sourire</em> d'une équipe qui connaît son quartier.</h1>
         <p class="hero-sub">Depuis près de 20 ans, Jean et son équipe régalent la Cité Internationale de Lyon avec des sandwichs, paninis, pâtes, quiches et pâtisseries — et des formules du midi qui respectent votre budget.</p>
         <div class="hero-actions">
           <a href="#click-collect" class="btn btn-primary">Commander en Click &amp; Collect</a>
           <a href="#infos" class="btn btn-secondary">Nous trouver</a>
+        </div>
+        <div class="hero-facts">
+          <div class="hero-fact"><strong>20 ans</strong><span>à la Cité Internationale</span></div>
+          <div class="hero-fact"><strong>7,30&nbsp;€</strong><span>formules dès ce prix</span></div>
+          <div class="hero-fact"><strong>100%</strong><span>préparé sur place</span></div>
         </div>
       </div>
       <div class="hero-art">
@@ -55,10 +63,10 @@
 
   <section id="histoire" class="section histoire">
     <div class="container histoire-inner">
-      <div class="histoire-art">
+      <div class="histoire-art reveal">
         <img src="assets/robot.jpg" alt="La statue emblématique du livreur, devant la boulangerie à la Cité Internationale de Lyon" class="histoire-photo">
       </div>
-      <div class="histoire-text">
+      <div class="histoire-text reveal">
         <p class="eyebrow">Notre histoire</p>
         <h2>Près de 20 ans au cœur de la Cité Internationale</h2>
         <p>Le Pain de la Cité est installé depuis près de 20 ans au cœur de la Cité Internationale, à Lyon, juste à côté de l'UGC Ciné Cité Internationale. Jean et son équipe y préparent chaque jour d'excellents sandwichs, paninis, pâtes, quiches et une belle sélection de pâtisseries et viennoiseries.</p>
@@ -73,71 +81,71 @@
       <h2 class="center">Un peu de tout, fait avec soin</h2>
       <p class="section-sub center">Salé, sucré, sur le pouce ou à emporter — de quoi satisfaire toutes les envies du midi.</p>
 
-      <figure class="carte-photo">
+      <figure class="carte-photo reveal">
         <img src="assets/vitrine.jpg" alt="La vitrine de la boulangerie Le Pain de la Cité, garnie de sandwichs, wraps, burgers et croque-monsieur">
         <figcaption>Notre vitrine, garnie chaque matin</figcaption>
       </figure>
 
       <div class="menu-grid">
-        <div class="menu-card">
-          <div class="menu-icon" aria-hidden="true">
+        <div class="menu-card reveal" style="transition-delay:0.00s">
+          <div class="menu-icon-wrap"><div class="menu-icon" aria-hidden="true">
             <svg viewBox="0 0 48 48"><path d="M6 20l8-10h20l8 10-4 18H10z" fill="#D9A441"/><path d="M6 20h36" stroke="#8C4426" stroke-width="2"/><path d="M14 10l3 10M34 10l-3 10" stroke="#8C4426" stroke-width="2"/></svg>
-          </div>
+          </div></div>
           <h3>Sandwichs</h3>
           <p>Thon, poulet, jambon ou vegan — généreux et frais, préparés avec des produits de qualité.</p>
         </div>
-        <div class="menu-card">
-          <div class="menu-icon" aria-hidden="true">
+        <div class="menu-card reveal" style="transition-delay:0.06s">
+          <div class="menu-icon-wrap"><div class="menu-icon" aria-hidden="true">
             <svg viewBox="0 0 48 48"><rect x="6" y="16" width="36" height="16" rx="8" fill="#C1613C"/><path d="M10 24h28" stroke="#fff" stroke-width="2" stroke-dasharray="1 5" stroke-linecap="round"/></svg>
-          </div>
+          </div></div>
           <h3>Paninis</h3>
           <p>3 fromages, saumon ou steak — chauds et croustillants, parfaits pour une pause rapide.</p>
         </div>
-        <div class="menu-card">
-          <div class="menu-icon" aria-hidden="true">
+        <div class="menu-card reveal" style="transition-delay:0.12s">
+          <div class="menu-icon-wrap"><div class="menu-icon" aria-hidden="true">
             <svg viewBox="0 0 48 48"><path d="M8 14c14-6 26-6 32 4-4 14-20 20-32 12z" fill="#7FA65C"/><path d="M14 20c6 4 16 4 22-2" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
-          </div>
+          </div></div>
           <h3>Salades</h3>
           <p>Fraîches et généreuses, idéales pour une pause légère et équilibrée.</p>
         </div>
-        <div class="menu-card">
-          <div class="menu-icon" aria-hidden="true">
+        <div class="menu-card reveal" style="transition-delay:0.18s">
+          <div class="menu-icon-wrap"><div class="menu-icon" aria-hidden="true">
             <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17" fill="#EADFC8"/><path d="M14 20c8 4 12 4 20 0M14 28c8-4 12-4 20 0" stroke="#D9A441" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
-          </div>
+          </div></div>
           <h3>Pâtes</h3>
           <p>Disponibles en hiver uniquement : tomate-basilic, pesto ou bolognaise — 450g généreusement assaisonnées.</p>
         </div>
-        <div class="menu-card">
-          <div class="menu-icon" aria-hidden="true">
+        <div class="menu-card reveal" style="transition-delay:0.24s">
+          <div class="menu-icon-wrap"><div class="menu-icon" aria-hidden="true">
             <svg viewBox="0 0 48 48"><path d="M6 26a18 8 0 0 1 36 0z" fill="#D9A441"/><rect x="6" y="26" width="36" height="6" rx="2" fill="#8C4426"/></svg>
-          </div>
+          </div></div>
           <h3>Quiches</h3>
           <p>Lorraine, méditerranéenne, 4 fromages ou poireaux — pâte croustillante, servies en part ou à emporter.</p>
         </div>
-        <div class="menu-card">
-          <div class="menu-icon" aria-hidden="true">
+        <div class="menu-card reveal" style="transition-delay:0.30s">
+          <div class="menu-icon-wrap"><div class="menu-icon" aria-hidden="true">
             <svg viewBox="0 0 48 48"><path d="M8 30c0-8 6-14 16-14s16 6 16 14" fill="#C1613C"/><rect x="8" y="30" width="32" height="6" rx="2" fill="#8C4426"/></svg>
-          </div>
+          </div></div>
           <h3>Pâtisseries</h3>
           <p>Une jolie sélection de pâtisseries pour terminer le repas en douceur.</p>
         </div>
-        <div class="menu-card">
-          <div class="menu-icon" aria-hidden="true">
+        <div class="menu-card reveal" style="transition-delay:0.30s">
+          <div class="menu-icon-wrap"><div class="menu-icon" aria-hidden="true">
             <svg viewBox="0 0 48 48"><path d="M10 26c0-10 8-18 14-18s14 8 14 18c0 6-5 10-14 10s-14-4-14-10z" fill="#D9A441"/></svg>
-          </div>
+          </div></div>
           <h3>Viennoiseries</h3>
           <p>Croissants, pains au chocolat et autres viennoiseries, tout juste sorties du four.</p>
         </div>
-        <div class="menu-card">
-          <div class="menu-icon" aria-hidden="true">
+        <div class="menu-card reveal" style="transition-delay:0.30s">
+          <div class="menu-icon-wrap"><div class="menu-icon" aria-hidden="true">
             <svg viewBox="0 0 48 48"><rect x="14" y="10" width="20" height="30" rx="3" fill="#C1613C"/><path d="M18 10V6h12v4" stroke="#8C4426" stroke-width="2" fill="none"/></svg>
-          </div>
+          </div></div>
           <h3>Boissons</h3>
           <p>Boissons fraîches et eau, à ajouter facilement à n'importe quelle formule.</p>
         </div>
       </div>
 
-      <div class="prices-card">
+      <div class="prices-card reveal">
         <h3 class="center">Nos prix à l'unité</h3>
         <p class="section-sub center">Hors formules du midi.</p>
         <ul class="price-list">
@@ -162,7 +170,7 @@
       <p class="section-sub center formules-sub">Nos formules du midi sont pensées pour s'adapter à votre budget, sans jamais faire de compromis sur la qualité ou la générosité des portions.</p>
 
       <div class="formules-grid">
-        <div class="formule-card">
+        <div class="formule-card reveal" style="transition-delay:0.00s">
           <div class="formule-head">
             <h3>Menu Sandwich</h3>
             <span class="formule-price">10,50&nbsp;€</span>
@@ -170,7 +178,7 @@
           <p>1 sandwich au choix + 1 dessert + 1 boisson 33cl ou eau 50cl.</p>
           <p class="formule-note">Avec boisson 50cl : +0,80&nbsp;€</p>
         </div>
-        <div class="formule-card">
+        <div class="formule-card reveal" style="transition-delay:0.06s">
           <div class="formule-head">
             <h3>Menu Quiche</h3>
             <span class="formule-price">7,30&nbsp;€</span>
@@ -178,7 +186,7 @@
           <p>1 part de quiche + 1 dessert viennoiserie (croissant, pain au chocolat ou yaourt) + 1 boisson 33cl ou eau 50cl.</p>
           <p class="formule-note">Avec boisson 50cl : +0,80&nbsp;€</p>
         </div>
-        <div class="formule-card">
+        <div class="formule-card reveal" style="transition-delay:0.12s">
           <div class="formule-head">
             <h3>Menu Pâtes <small>(hiver uniquement)</small></h3>
             <span class="formule-price">10,30&nbsp;€</span>
@@ -186,7 +194,7 @@
           <p>450g de pâtes assaisonnées (tomate-basilic, pesto ou bolognaise) + 1 dessert + 1 boisson 33cl ou eau 50cl.</p>
           <p class="formule-note">Avec boisson 50cl : +0,80&nbsp;€</p>
         </div>
-        <div class="formule-card">
+        <div class="formule-card reveal" style="transition-delay:0.18s">
           <div class="formule-head">
             <h3>Menu Salade</h3>
             <span class="formule-price">10,30&nbsp;€</span>
@@ -202,7 +210,7 @@
         <p class="formules-tarifs-note">Tarifs relevés sur notre panneau en boutique, susceptibles d'évoluer.</p>
       </div>
 
-      <figure class="formules-board">
+      <figure class="formules-board reveal">
         <img src="assets/menu-board.jpg" alt="Panneau des formules du midi affiché devant la boulangerie, avec les prix détaillés">
         <figcaption>Notre panneau des formules, affiché devant la boutique</figcaption>
       </figure>
@@ -756,7 +764,7 @@
 
   <section id="infos" class="section infos">
     <div class="container infos-inner">
-      <div class="infos-block">
+      <div class="infos-block reveal">
         <p class="eyebrow">Infos pratiques</p>
         <h2>Venez nous voir</h2>
         <ul class="infos-list">
@@ -780,7 +788,7 @@
         <p class="infos-note">Horaires indicatifs — merci de vérifier par téléphone en cas de doute (jours fériés, congés d'été, etc.).</p>
         <img src="assets/facade-day.jpg" alt="La boulangerie Le Pain de la Cité de jour, à la Cité Internationale de Lyon" class="infos-photo">
       </div>
-      <div class="infos-map">
+      <div class="infos-map reveal">
         <iframe
           title="Localisation Le Pain de la Cité"
           src="https://www.google.com/maps?q=63+Quai+Charles+de+Gaulle,+69006+Lyon&output=embed"
@@ -792,7 +800,7 @@
   </section>
 
   <section id="contact" class="section contact">
-    <div class="container contact-inner">
+    <div class="container contact-inner reveal">
       <h2>Une question, une commande ?</h2>
       <p>Appelez-nous directement, on se fera un plaisir de vous répondre.</p>
       <a href="tel:0699738605" class="btn btn-primary btn-large">📞 06 99 73 86 05</a>

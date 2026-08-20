@@ -15,6 +15,33 @@ nav.querySelectorAll("a").forEach((link) => {
   });
 });
 
+// Légère animation d'apparition au scroll (amélioration progressive : sans
+// IntersectionObserver, tout reste simplement visible).
+(function initScrollReveal() {
+  const els = document.querySelectorAll(".reveal");
+  if (!els.length) return;
+  if (!("IntersectionObserver" in window)) {
+    els.forEach((el) => el.classList.add("is-visible"));
+    return;
+  }
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          io.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+  );
+  els.forEach((el) => io.observe(el));
+
+  // Filet de sécurité : quoi qu'il arrive, le contenu ne doit jamais rester
+  // invisible (mauvais timing du scroll, onglet en arrière-plan, etc.).
+  setTimeout(() => els.forEach((el) => el.classList.add("is-visible")), 2500);
+})();
+
 // ---- Click & Collect ----
 // Paiement en ligne (CB + titre-restaurant via Monext/Conecs) pas encore
 // disponible : le panier est consultable, mais aucune commande ne peut
