@@ -220,6 +220,8 @@ function initClickCollect() {
   const monextNoticeEl = document.getElementById("ccMonextNotice");
   const monextTRBtn = document.getElementById("ccMonextTRBtn");
   const monextTRNoticeEl = document.getElementById("ccMonextTRNotice");
+  const monextApplePayBtn = document.getElementById("ccMonextApplePayBtn");
+  const monextApplePayNoticeEl = document.getElementById("ccMonextApplePayNotice");
   const DISCOUNT_RATE = 0.05;
 
   orderModalCloseBtn.addEventListener("click", () => {
@@ -377,6 +379,15 @@ function initClickCollect() {
       btn: monextTRBtn,
       noticeEl: monextTRNoticeEl,
       defaultLabel: "🎫 Payer par titre-restaurant",
+    })
+  );
+
+  monextApplePayBtn.addEventListener("click", () =>
+    startMonextPayment({
+      paymentMethod: "APPLE_PAY",
+      btn: monextApplePayBtn,
+      noticeEl: monextApplePayNoticeEl,
+      defaultLabel: " Payer avec Apple Pay",
     })
   );
 

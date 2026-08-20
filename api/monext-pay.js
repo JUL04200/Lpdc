@@ -30,9 +30,10 @@ module.exports = async (req, res) => {
     return;
   }
 
-  // "CB" (défaut) ou "TRD" (titre-restaurant) : identifiants de contrat
-  // confirmés dans l'espace d'homologation Monext.
-  const contractNumber = paymentMethod === "TRD" ? "TRD" : "CB_MONEXT_3DS";
+  // "CB" (défaut), "TRD" (titre-restaurant) ou "APPLE_PAY" : identifiants
+  // de contrat confirmés dans l'espace d'administration Monext.
+  const contractNumber =
+    paymentMethod === "TRD" ? "TRD" : paymentMethod === "APPLE_PAY" ? "APPLE_PAY" : "CB_MONEXT_3DS";
 
   const host = req.headers["x-forwarded-host"] || req.headers.host;
   const proto = req.headers["x-forwarded-proto"] || "https";
