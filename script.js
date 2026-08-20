@@ -218,10 +218,6 @@ function initClickCollect() {
   const orderModalCloseBtn = document.getElementById("ccOrderModalClose");
   const monextPayBtn = document.getElementById("ccMonextPayBtn");
   const monextNoticeEl = document.getElementById("ccMonextNotice");
-  const monextTRBtn = document.getElementById("ccMonextTRBtn");
-  const monextTRNoticeEl = document.getElementById("ccMonextTRNotice");
-  const monextApplePayBtn = document.getElementById("ccMonextApplePayBtn");
-  const monextApplePayNoticeEl = document.getElementById("ccMonextApplePayNotice");
   const DISCOUNT_RATE = 0.05;
 
   orderModalCloseBtn.addEventListener("click", () => {
@@ -366,28 +362,9 @@ function initClickCollect() {
 
   monextPayBtn.addEventListener("click", () =>
     startMonextPayment({
-      paymentMethod: "CB",
       btn: monextPayBtn,
       noticeEl: monextNoticeEl,
-      defaultLabel: "💳 Payer par carte bancaire",
-    })
-  );
-
-  monextTRBtn.addEventListener("click", () =>
-    startMonextPayment({
-      paymentMethod: "TRD",
-      btn: monextTRBtn,
-      noticeEl: monextTRNoticeEl,
-      defaultLabel: "🎫 Payer par titre-restaurant",
-    })
-  );
-
-  monextApplePayBtn.addEventListener("click", () =>
-    startMonextPayment({
-      paymentMethod: "APPLE_PAY",
-      btn: monextApplePayBtn,
-      noticeEl: monextApplePayNoticeEl,
-      defaultLabel: " Payer avec Apple Pay",
+      defaultLabel: "💳 Finaliser le paiement",
     })
   );
 

@@ -20,7 +20,7 @@ module.exports = async (req, res) => {
     return;
   }
 
-  const { total, subtotal, discount, name, pickupTime, orderNumber, cartSummary, paymentMethod } = payload;
+  const { total, subtotal, discount, name, pickupTime, orderNumber, cartSummary } = payload;
   const amountCents = Math.round(Number(total) * 100);
 
   if (!amountCents || amountCents <= 0 || !name || !pickupTime || !orderNumber) {
@@ -30,10 +30,12 @@ module.exports = async (req, res) => {
     return;
   }
 
-  // "CB" (défaut), "TRD" (titre-restaurant) ou "APPLE_PAY" : identifiants
-  // de contrat confirmés dans l'espace d'administration Monext.
-  const contractNumber =
-    paymentMethod === "TRD" ? "TRD" : paymentMethod === "APPLE_PAY" ? "APPLE_PAY" : "CB_MONEXT_3DS";
+  // Un seul bouton "Finaliser le paiement" : on ancre la session sur le
+  // contrat CB pour lever l'ambiguïté entre les 2 contrats CB actifs, mais
+  // sans restreindre l'affichage — la page Monext montre tous les moyens
+  // de paiement actifs (CB, Apple Pay, CONECS, virement) et le client
+  // choisit lui-même.
+  const contractNumber = "CB_MONEXT_3DS";
 
   const host = req.headers["x-forwarded-host"] || req.headers.host;
   const proto = req.headers["x-forwarded-proto"] || "https";

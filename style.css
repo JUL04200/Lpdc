@@ -507,6 +507,7 @@ a { color: inherit; text-decoration: none; }
 .cc-monext-btn-apple:hover { background: #222; border-color: #222; color: #fff; }
 
 .cc-note { font-size: 0.78rem; color: #B49B87; margin-top: 16px; }
+.cc-payment-methods { text-align: center; }
 
 /* Infos */
 .infos-inner {
