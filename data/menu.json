@@ -151,11 +151,6 @@
       "name": "Cristaline",
       "price": 1.0,
       "visible": true
-    },
-    {
-      "name": "Article de test",
-      "price": 0.1,
-      "visible": true
     }
   ]
 }
