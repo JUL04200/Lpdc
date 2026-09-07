@@ -767,7 +767,20 @@
             <label for="ccName">Nom *</label>
             <input type="text" id="ccName" required>
             <label for="ccTime">Heure de retrait souhaitée *</label>
-            <input type="text" id="ccTime" placeholder="ex. 12h30" required>
+            <select id="ccTime" required>
+              <option value="" disabled selected hidden>Choisir un horaire</option>
+              <option value="11h30">11h30</option>
+              <option value="11h45">11h45</option>
+              <option value="12h00">12h00</option>
+              <option value="12h15">12h15</option>
+              <option value="12h30">12h30</option>
+              <option value="12h45">12h45</option>
+              <option value="13h00">13h00</option>
+              <option value="13h15">13h15</option>
+              <option value="13h30">13h30</option>
+              <option value="13h45">13h45</option>
+              <option value="14h00">14h00</option>
+            </select>
           </div>
 
           <button type="button" id="ccMonextPayBtn" class="btn btn-primary btn-large">💳 Finaliser le paiement</button>

@@ -585,7 +585,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .cc-fields { display: flex; flex-direction: column; gap: 6px; margin-top: 24px; }
 .cc-fields label { font-size: 0.82rem; color: #E8D9C8; margin-top: 8px; }
 .cc-fields label:first-child { margin-top: 0; }
-.cc-fields input {
+.cc-fields input,
+.cc-fields select {
   padding: 11px 13px;
   border-radius: 9px;
   border: 1px solid rgba(255,255,255,0.2);
@@ -595,9 +596,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   font-family: var(--font-body);
   transition: border-color 0.15s ease, background 0.15s ease;
 }
-.cc-fields input:focus { border-color: var(--mustard); background: rgba(255,255,255,0.12); }
+.cc-fields select { cursor: pointer; color-scheme: dark; }
+.cc-fields input:focus,
+.cc-fields select:focus { border-color: var(--mustard); background: rgba(255,255,255,0.12); }
 .cc-fields input::placeholder { color: #B49B87; }
 .cc-fields input:invalid:not(:placeholder-shown) { border-color: #E23B3B; }
+.cc-fields select:invalid { color: #B49B87; }
 
 .cc-modal {
   position: fixed;
