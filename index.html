@@ -797,6 +797,30 @@
         <p>Votre numéro de commande est le</p>
         <p id="ccOrderNumber" class="cc-modal-number"></p>
         <p class="cc-modal-text">Un récapitulatif a été envoyé à la boulangerie. Merci de vous présenter à l'heure de retrait choisie.</p>
+
+        <div id="ccFeedback" class="cc-feedback">
+          <p class="cc-feedback-title">Un petit avis pour nous aider ? (facultatif)</p>
+
+          <p class="cc-feedback-label">Comment avez-vous connu notre Click &amp; Collect ?</p>
+          <div class="cc-feedback-options">
+            <label><input type="radio" name="ccFeedbackSource" value="Le site web">Le site web</label>
+            <label><input type="radio" name="ccFeedbackSource" value="Les flyers distribués en magasin">Les flyers distribués en magasin</label>
+            <label><input type="radio" name="ccFeedbackSource" value="Le bouche-à-oreille">Le bouche-à-oreille</label>
+          </div>
+
+          <p class="cc-feedback-label">Votre expérience, sur 5 ?</p>
+          <div class="cc-rating">
+            <input type="radio" id="ccStar5" name="ccFeedbackRating" value="5"><label for="ccStar5" title="5 étoiles">★</label>
+            <input type="radio" id="ccStar4" name="ccFeedbackRating" value="4"><label for="ccStar4" title="4 étoiles">★</label>
+            <input type="radio" id="ccStar3" name="ccFeedbackRating" value="3"><label for="ccStar3" title="3 étoiles">★</label>
+            <input type="radio" id="ccStar2" name="ccFeedbackRating" value="2"><label for="ccStar2" title="2 étoiles">★</label>
+            <input type="radio" id="ccStar1" name="ccFeedbackRating" value="1"><label for="ccStar1" title="1 étoile">★</label>
+          </div>
+
+          <button type="button" id="ccFeedbackSend" class="btn btn-secondary">Envoyer mon avis</button>
+          <p id="ccFeedbackNotice" class="cc-note"></p>
+        </div>
+
         <button type="button" id="ccOrderModalClose" class="btn btn-primary">Fermer</button>
       </div>
     </div>

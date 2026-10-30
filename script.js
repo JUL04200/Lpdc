@@ -245,10 +245,57 @@ function initClickCollect() {
   const orderModalCloseBtn = document.getElementById("ccOrderModalClose");
   const monextPayBtn = document.getElementById("ccMonextPayBtn");
   const monextNoticeEl = document.getElementById("ccMonextNotice");
+  const feedbackEl = document.getElementById("ccFeedback");
+  const feedbackSendBtn = document.getElementById("ccFeedbackSend");
+  const feedbackNoticeEl = document.getElementById("ccFeedbackNotice");
   const DISCOUNT_RATE = 0.05;
 
   orderModalCloseBtn.addEventListener("click", () => {
     orderModal.hidden = true;
+  });
+
+  // Petit questionnaire optionnel affiché après une commande payée : d'où
+  // vient le client, et sa note sur 5. Envoyé par mail (même système que
+  // la confirmation de commande), jamais bloquant pour fermer la popup.
+  function resetFeedbackForm() {
+    feedbackEl.querySelectorAll('input[type="radio"]').forEach((el) => (el.checked = false));
+    feedbackNoticeEl.textContent = "";
+    feedbackNoticeEl.style.color = "";
+    feedbackSendBtn.hidden = false;
+    feedbackSendBtn.disabled = false;
+  }
+
+  feedbackSendBtn.addEventListener("click", () => {
+    const source = feedbackEl.querySelector('input[name="ccFeedbackSource"]:checked');
+    const rating = feedbackEl.querySelector('input[name="ccFeedbackRating"]:checked');
+    if (!source || !rating) {
+      feedbackNoticeEl.textContent = "Merci de répondre aux deux questions avant d'envoyer.";
+      feedbackNoticeEl.style.color = "#E23B3B";
+      return;
+    }
+    feedbackNoticeEl.textContent = "";
+    feedbackNoticeEl.style.color = "";
+    feedbackSendBtn.disabled = true;
+
+    const message = [
+      "Avis client Click & Collect - Le Pain de la Cité",
+      "",
+      `Numéro de commande : ${orderNumberEl.textContent}`,
+      `Comment il/elle a connu le Click & Collect : ${source.value}`,
+      `Note d'expérience : ${rating.value}/5`,
+    ].join("\n");
+
+    const done = () => {
+      feedbackNoticeEl.textContent = "Merci pour votre avis !";
+      feedbackNoticeEl.style.color = "";
+      feedbackSendBtn.hidden = true;
+    };
+
+    if (!window.emailjs) {
+      done();
+      return;
+    }
+    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, { message }).then(done).catch(done);
   });
 
   function getCart() {
@@ -413,6 +460,7 @@ function initClickCollect() {
         }
         const pd = data.privateData || {};
         orderNumberEl.textContent = pd.orderNumber || "";
+        resetFeedbackForm();
         orderModal.hidden = false;
 
         const itemLines = Object.keys(pd)
