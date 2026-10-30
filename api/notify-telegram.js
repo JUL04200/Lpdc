@@ -1,6 +1,21 @@
 const { sendTelegramMessage } = require("../lib/telegram");
 
 module.exports = async (req, res) => {
+  // GET pratique pour vérifier la connexion Telegram depuis un navigateur
+  // (ex. ?test=1), sans passer par une vraie commande.
+  if (req.method === "GET") {
+    try {
+      await sendTelegramMessage("✅ Test de connexion Telegram - Le Pain de la Cité");
+      res.setHeader("Content-Type", "application/json");
+      res.end(JSON.stringify({ ok: true }));
+    } catch (err) {
+      res.statusCode = 502;
+      res.setHeader("Content-Type", "application/json");
+      res.end(JSON.stringify({ error: err.message }));
+    }
+    return;
+  }
+
   if (req.method !== "POST") {
     res.statusCode = 405;
     res.end("Method not allowed");
