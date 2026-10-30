@@ -351,6 +351,15 @@ function initClickCollect() {
     item.querySelectorAll(".cc-flavor").forEach((el) => el.addEventListener("change", renderCart));
   });
 
+  function resetCartQuantities() {
+    items.forEach((item) => {
+      item.dataset.qty = "0";
+      const valueEl = item.querySelector(".cc-qty-value");
+      if (valueEl) valueEl.textContent = "0";
+    });
+    renderCart();
+  }
+
   // Paiement Monext (sandbox pour l'instant) : on redirige vers la page de
   // paiement hébergée par Monext, on ne calcule/valide rien nous-mêmes.
   function startMonextPayment({ paymentMethod, btn, noticeEl, defaultLabel }) {
@@ -360,11 +369,39 @@ function initClickCollect() {
       return;
     }
     noticeEl.textContent = "";
-    btn.disabled = true;
-    btn.textContent = "Redirection en cours…";
 
     const orderNumber = generateOrderNumber();
     const cartSummary = currentCart.map((i) => `${i.qty}x ${i.name}${i.flavor ? ` (${i.flavor})` : ""}`);
+
+    // Panier à 0€ (ex. article de test) : rien à payer, donc pas de session
+    // Monext — on valide directement la commande.
+    if (Math.round(currentTotal * 100) === 0) {
+      btn.disabled = true;
+      btn.textContent = "Validation…";
+
+      const message = [
+        "Nouvelle commande Click & Collect - Le Pain de la Cité (gratuite, 0 €)",
+        "",
+        `Numéro de commande : ${orderNumber}`,
+        `Nom : ${nameInput.value.trim()}`,
+        `Heure de retrait souhaitée : ${timeInput.value.trim()}`,
+        "",
+        ...cartSummary.map((line) => `- ${line}`),
+      ].join("\n");
+      sendNotification(message);
+
+      orderNumberEl.textContent = orderNumber;
+      resetFeedbackForm();
+      orderModal.hidden = false;
+      resetCartQuantities();
+
+      btn.disabled = false;
+      btn.textContent = defaultLabel;
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = "Redirection en cours…";
 
     fetch("/api/monext-pay", {
       method: "POST",
