@@ -47,16 +47,14 @@ nav.querySelectorAll("a").forEach((link) => {
 // disponible : le panier est consultable, mais aucune commande ne peut
 // être finalisée pour l'instant. Voir les boutons désactivés dans le HTML.
 
-// Notification automatique par email (EmailJS) une fois la commande payée.
-// Remplace le SMS manuel : dès qu'un paiement Monext aboutit, appeler
-// sendOrderEmail(cart, subtotal, discount, total) depuis le futur
-// gestionnaire de succès de paiement.
-const EMAILJS_SERVICE_ID = "service_carcj63";
-const EMAILJS_TEMPLATE_ID = "template_uic83b7";
-const EMAILJS_PUBLIC_KEY = "py6_7IyPbRAmN4CJz";
-
-if (window.emailjs) {
-  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+// Notification automatique (Telegram) une fois la commande payée, ou pour
+// un avis client envoyé.
+function sendNotification(message) {
+  return fetch("/api/notify-telegram", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message }),
+  });
 }
 
 function formatEuroGlobal(n) {
@@ -65,27 +63,6 @@ function formatEuroGlobal(n) {
 
 function generateOrderNumber() {
   return String(Math.floor(10 + Math.random() * 90));
-}
-
-function buildOrderEmailMessage(cart, subtotal, discount, total, name, pickupTime, orderNumber) {
-  const lines = ["Nouvelle commande Click & Collect - Le Pain de la Cité", ""];
-  lines.push(`Numéro de commande : ${orderNumber}`);
-  lines.push(`Nom : ${name}`);
-  lines.push(`Heure de retrait souhaitée : ${pickupTime}`);
-  lines.push("");
-  cart.forEach((i) => lines.push(`- ${i.qty}x ${i.name}${i.flavor ? ` (${i.flavor})` : ""}`));
-  lines.push("");
-  lines.push(`Sous-total : ${formatEuroGlobal(subtotal)}`);
-  lines.push(`Réduction Click & Collect (-5%) : -${formatEuroGlobal(discount)}`);
-  lines.push(`Total payé : ${formatEuroGlobal(total)}`);
-  return lines.join("\n");
-}
-
-function sendOrderEmail(cart, subtotal, discount, total, name, pickupTime, orderNumber) {
-  if (!window.emailjs) return Promise.reject(new Error("EmailJS non chargé"));
-  return emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-    message: buildOrderEmailMessage(cart, subtotal, discount, total, name, pickupTime, orderNumber),
-  });
 }
 
 // Horaires temporairement débloqués sur demande. Remettre à false pour
@@ -291,11 +268,7 @@ function initClickCollect() {
       feedbackSendBtn.hidden = true;
     };
 
-    if (!window.emailjs) {
-      done();
-      return;
-    }
-    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, { message }).then(done).catch(done);
+    sendNotification(message).then(done).catch(done);
   });
 
   function getCart() {
@@ -481,9 +454,7 @@ function initClickCollect() {
           `Total payé : ${pd.total || ""} €`,
         ].join("\n");
 
-        if (window.emailjs) {
-          emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, { message });
-        }
+        sendNotification(message);
       })
       .catch(() => {
         monextNoticeEl.textContent = "❌ Impossible de vérifier le statut du paiement.";
