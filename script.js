@@ -227,13 +227,23 @@ function initClickCollect() {
   const feedbackNoticeEl = document.getElementById("ccFeedbackNotice");
   const DISCOUNT_RATE = 0.05;
 
+  // Un seul message Telegram par commande : on garde le récap de commande
+  // en attente, et on le complète avec l'avis (s'il est rempli) avant de
+  // l'envoyer — à l'envoi de l'avis, ou à la fermeture de la popup sinon.
+  let pendingOrderMessage = null;
+
   orderModalCloseBtn.addEventListener("click", () => {
+    if (pendingOrderMessage) {
+      sendNotification(pendingOrderMessage);
+      pendingOrderMessage = null;
+    }
     orderModal.hidden = true;
   });
 
   // Petit questionnaire optionnel affiché après une commande payée : d'où
-  // vient le client, et sa note sur 5. Envoyé par mail (même système que
-  // la confirmation de commande), jamais bloquant pour fermer la popup.
+  // vient le client, et sa note sur 5. Fusionné dans le même message
+  // Telegram que la confirmation de commande, jamais bloquant pour fermer
+  // la popup.
   function resetFeedbackForm() {
     feedbackEl.querySelectorAll('input[type="radio"]').forEach((el) => (el.checked = false));
     feedbackNoticeEl.textContent = "";
@@ -255,12 +265,15 @@ function initClickCollect() {
     feedbackSendBtn.disabled = true;
 
     const message = [
-      "Avis client Click & Collect - Le Pain de la Cité",
+      pendingOrderMessage,
       "",
-      `Numéro de commande : ${orderNumberEl.textContent}`,
+      "— Avis client —",
       `Comment il/elle a connu le Click & Collect : ${source.value}`,
       `Note d'expérience : ${rating.value}/5`,
-    ].join("\n");
+    ]
+      .filter((line) => line !== null)
+      .join("\n");
+    pendingOrderMessage = null;
 
     const done = () => {
       feedbackNoticeEl.textContent = "Merci pour votre avis !";
@@ -388,7 +401,7 @@ function initClickCollect() {
         "",
         ...cartSummary.map((line) => `- ${line}`),
       ].join("\n");
-      sendNotification(message);
+      pendingOrderMessage = message;
 
       orderNumberEl.textContent = orderNumber;
       resetFeedbackForm();
@@ -491,7 +504,7 @@ function initClickCollect() {
           `Total payé : ${pd.total || ""} €`,
         ].join("\n");
 
-        sendNotification(message);
+        pendingOrderMessage = message;
       })
       .catch(() => {
         monextNoticeEl.textContent = "❌ Impossible de vérifier le statut du paiement.";
