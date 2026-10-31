@@ -254,13 +254,7 @@ function initClickCollect() {
     feedbackNoticeEl.style.color = "";
     feedbackSendBtn.disabled = true;
 
-    const message = [
-      "Avis client Click & Collect - Le Pain de la Cité",
-      "",
-      `Numéro de commande : ${orderNumberEl.textContent}`,
-      `Comment il/elle a connu le Click & Collect : ${source.value}`,
-      `Note d'expérience : ${rating.value}/5`,
-    ].join("\n");
+    const message = `Avis commande ${orderNumberEl.textContent} : ${source.value} — ${rating.value}/5`;
 
     const done = () => {
       feedbackNoticeEl.textContent = "Merci pour votre avis !";
