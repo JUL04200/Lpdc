@@ -223,35 +223,52 @@ function initClickCollect() {
   const monextPayBtn = document.getElementById("ccMonextPayBtn");
   const monextNoticeEl = document.getElementById("ccMonextNotice");
   const feedbackEl = document.getElementById("ccFeedback");
+  const feedbackSendBtn = document.getElementById("ccFeedbackSend");
+  const feedbackNoticeEl = document.getElementById("ccFeedbackNotice");
   const DISCOUNT_RATE = 0.05;
 
-  // Un seul message Telegram par commande : on garde le récap de commande
-  // en attente, et on l'envoie à la fermeture de la popup, complété avec
-  // l'avis (s'il a été rempli) — pas de bouton "Envoyer" séparé, tout part
-  // au clic sur "Fermer".
-  let pendingOrderMessage = null;
+  orderModalCloseBtn.addEventListener("click", () => {
+    orderModal.hidden = true;
+  });
 
+  // Petit questionnaire optionnel affiché après une commande payée : d'où
+  // vient le client, et sa note sur 5. Envoyé dans un message Telegram à
+  // part, jamais bloquant pour fermer la popup.
   function resetFeedbackForm() {
     feedbackEl.querySelectorAll('input[type="radio"]').forEach((el) => (el.checked = false));
+    feedbackNoticeEl.textContent = "";
+    feedbackNoticeEl.style.color = "";
+    feedbackSendBtn.hidden = false;
+    feedbackSendBtn.disabled = false;
   }
 
-  orderModalCloseBtn.addEventListener("click", () => {
-    if (pendingOrderMessage) {
-      const source = feedbackEl.querySelector('input[name="ccFeedbackSource"]:checked');
-      const rating = feedbackEl.querySelector('input[name="ccFeedbackRating"]:checked');
-      const message = [
-        pendingOrderMessage,
-        source || rating ? "" : null,
-        source || rating ? "— Avis client —" : null,
-        source ? `Comment il/elle a connu le Click & Collect : ${source.value}` : null,
-        rating ? `Note d'expérience : ${rating.value}/5` : null,
-      ]
-        .filter((line) => line !== null)
-        .join("\n");
-      sendNotification(message);
-      pendingOrderMessage = null;
+  feedbackSendBtn.addEventListener("click", () => {
+    const source = feedbackEl.querySelector('input[name="ccFeedbackSource"]:checked');
+    const rating = feedbackEl.querySelector('input[name="ccFeedbackRating"]:checked');
+    if (!source || !rating) {
+      feedbackNoticeEl.textContent = "Merci de répondre aux deux questions avant d'envoyer.";
+      feedbackNoticeEl.style.color = "#E23B3B";
+      return;
     }
-    orderModal.hidden = true;
+    feedbackNoticeEl.textContent = "";
+    feedbackNoticeEl.style.color = "";
+    feedbackSendBtn.disabled = true;
+
+    const message = [
+      "Avis client Click & Collect - Le Pain de la Cité",
+      "",
+      `Numéro de commande : ${orderNumberEl.textContent}`,
+      `Comment il/elle a connu le Click & Collect : ${source.value}`,
+      `Note d'expérience : ${rating.value}/5`,
+    ].join("\n");
+
+    const done = () => {
+      feedbackNoticeEl.textContent = "Merci pour votre avis !";
+      feedbackNoticeEl.style.color = "";
+      feedbackSendBtn.hidden = true;
+    };
+
+    sendNotification(message).then(done).catch(done);
   });
 
   function getCart() {
@@ -371,7 +388,7 @@ function initClickCollect() {
         "",
         ...cartSummary.map((line) => `- ${line}`),
       ].join("\n");
-      pendingOrderMessage = message;
+      sendNotification(message);
 
       orderNumberEl.textContent = orderNumber;
       resetFeedbackForm();
@@ -474,7 +491,7 @@ function initClickCollect() {
           `Total payé : ${pd.total || ""} €`,
         ].join("\n");
 
-        pendingOrderMessage = message;
+        sendNotification(message);
       })
       .catch(() => {
         monextNoticeEl.textContent = "❌ Impossible de vérifier le statut du paiement.";
